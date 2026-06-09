@@ -1,299 +1,302 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>VelaSleep | The Ultimatum Brand & UI Guide</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Manrope:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
-    
-    <style>
-        /* ── LOCAL FONTS (CONCEPT 01) ── */
-        @font-face { font-family: 'Pacaembu'; src: url('./fonts/Pacaembu-Bold.ttf') format('truetype'); font-weight: 700; }
-        @font-face { font-family: 'Pacaembu'; src: url('./fonts/Pacaembu-Regular.ttf') format('truetype'); font-weight: 400; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VelaSleep — Brand Identity & Theme Guide</title>
+<!-- Подключение Google Fonts для Концептов 02 и 03 -->
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Manrope:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body { background: #0A0A0A; color: #fff; font-family: 'Manrope', sans-serif; overflow-x: hidden; }
+<style>
+/* ── LOCAL FONTS (CONCEPT 01) ── */
+@font-face { font-family: 'Pacaembu'; src: url('./fonts/Pacaembu-Bold.ttf') format('truetype'); font-weight: 700; }
+@font-face { font-family: 'Pacaembu'; src: url('./fonts/Pacaembu-Regular.ttf') format('truetype'); font-weight: 400; }
 
-        /* ── MASTER NAVIGATION (TIBU STYLE) ── */
-        .nav-master { position: fixed; top: 25px; left: 50%; transform: translateX(-50%); z-index: 9999; background: rgba(0,0,0,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 5px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.1); display: flex; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
-        .nav-master a { color: rgba(255,255,255,0.4); text-decoration: none; padding: 10px 24px; border-radius: 100px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; white-space: nowrap; }
-        .nav-master a:hover { color: #fff; }
-        .nav-master a.active-fresh { background: #A8DDEE; color: #1a3a45; }
-        .nav-master a.active-tech { background: #1F8FA3; color: #fff; }
-        .nav-master a.active-sanctuary { background: #B9A9CC; color: #fff; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#0A0A0A;color:#fff;font-family:'Manrope',sans-serif;line-height:1.6;overflow-x:hidden}
 
-        /* ── IDENTITY PANELS (TIBU STYLE) ── */
-        .id-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1400px; margin: 0 auto; padding: 0 60px 60px; }
-        .id-card { border-radius: 20px; padding: 35px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
-        .id-card h4 { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 25px; opacity: 0.4; font-weight: 900; }
-        
-        .swatch { width: 48px; height: 48px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.05); }
-        .sw-lbl { font-size: 8px; text-align: center; margin-top: 8px; font-weight: 800; opacity: 0.6; }
+/* ── MASTER NAV ── */
+.master-nav{
+  position:fixed;top:24px;left:50%;transform:translateX(-50%);
+  z-index:9999;
+  background:rgba(10,10,10,0.85);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:100px;
+  padding:5px;
+  display:flex;gap:4px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.4);
+}
+.master-nav a{
+  color:rgba(255,255,255,0.4);
+  text-decoration:none;
+  padding:10px 22px;
+  border-radius:100px;
+  font-size:10px;font-weight:700;
+  text-transform:uppercase;letter-spacing:2px;
+  transition:all 0.25s;
+  white-space:nowrap;
+}
+.master-nav a:hover{color:#fff}
+.master-nav a.c1-active{background:#A8DDEE;color:#1a3a45}
+.master-nav a.c2-active{background:#1F8FA3;color:#fff}
+.master-nav a.c3-active{background:#B9A9CC;color:#fff}
 
-        /* ── DEVICE FRAMES ── */
-        .device-container { display: grid; grid-template-columns: 1fr 340px; gap: 40px; max-width: 1400px; margin: 0 auto; padding: 0 60px 120px; align-items: start; }
-        @media(max-width: 1000px) { .device-container { grid-template-columns: 1fr; } }
+/* ── SHARED SECTION CHROME ── */
+.concept-intro{ text-align:center; padding:160px 40px 80px; }
+.concept-label{ font-size:9px;font-weight:800;letter-spacing:5px; text-transform:uppercase;opacity:0.3; margin-bottom:16px;display:block; }
+.concept-title{ font-size:clamp(64px,8vw,120px); line-height:0.9; letter-spacing:-4px; display:block; }
 
-        .dk-frame { background: #fff; border-radius: 24px; overflow: hidden; box-shadow: 0 50px 100px rgba(0,0,0,0.2); border: 1px solid rgba(0,0,0,0.05); }
-        .dk-chrome { background: #f8fafc; padding: 15px 25px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(0,0,0,0.04); }
-        .chrome-dot { width: 10px; height: 10px; border-radius: 50%; }
-        .url-bar { flex: 1; background: #fff; border: 1px solid rgba(0,0,0,0.05); border-radius: 100px; padding: 5px 20px; font-size: 10px; color: rgba(0,0,0,0.2); margin-left: 20px; }
+/* ── IDENTITY GRID (TIBU STYLE) ── */
+.id-section{ max-width:1400px;margin:0 auto; padding:0 60px 80px; display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.id-card{ border-radius:20px; padding:32px; border:1px solid rgba(0,0,0,0.08); }
+.id-card-title{ font-size:9px;font-weight:800;letter-spacing:4px; text-transform:uppercase; margin-bottom:24px;opacity:0.4; }
 
-        .mob-outer { background: #fff; border-radius: 50px; border: 10px solid #f1f5f9; padding: 10px; box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
-        .mob-screen { border-radius: 32px; overflow: hidden; height: 620px; overflow-y: auto; border: 1px solid rgba(0,0,0,0.05); }
+/* ── DEVICE FRAMES ── */
+.frames-wrap{ max-width:1400px;margin:0 auto; padding:0 60px 120px; }
+.frames-section-label{ font-size:9px;font-weight:800;letter-spacing:5px; text-transform:uppercase; text-align:center; margin-bottom:48px; opacity:0.25; }
+.desktop-mobile-layout{ display:grid; grid-template-columns:1fr 320px; gap:32px; align-items:start; }
 
-        .section-tag { font-size: 10px; letter-spacing: 5px; text-transform: uppercase; opacity: 0.25; text-align: center; margin: 120px 0 40px; font-weight: 900; }
+.desktop-frame{ border-radius:24px; overflow:hidden; box-shadow:0 40px 120px rgba(0,0,0,0.2); }
+.desktop-chrome{ display:flex;align-items:center;gap:8px; padding:14px 20px; }
+.chrome-dot{width:10px;height:10px;border-radius:50%}
+.chrome-url{ margin-left:12px; padding:6px 14px; border-radius:100px; font-size:10px; font-weight:500; flex:1; max-width:320px; }
 
-        /* ── THEME DNA OVERRIDES ── */
-        /* Vetro: Roundness & Airy */
-        .vetro-round { border-radius: 32px; }
-        /* Wonder: Glass & Dark */
-        .wonder-glass { background: rgba(26, 29, 35, 0.75); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-bottom: 1px solid rgba(255,255,255,0.05); }
-    </style>
+.mobile-outer{ border-radius:44px; padding:10px; position:relative; box-shadow: 0 30px 60px rgba(0,0,0,0.15); }
+.mobile-inner{ border-radius:36px; overflow:hidden; height:600px; overflow-y:auto; }
+
+/* ── UI SHOWCASE ── */
+.ui-showcase{ max-width:1400px;margin:0 auto; padding:0 60px 80px; display:grid;grid-template-columns:repeat(4,1fr);gap:20px; }
+.ui-card{ border-radius:20px;padding:28px; display:flex;flex-direction:column;gap:16px; }
+
+/* ── CONCEPT 01 ── */
+#c1{background:#F8FAFB;color:#2D3748}
+#c1 .id-card{background:#fff; border:1px solid #EAF7FC;}
+#c1 .ui-card{background:#fff; border:1px solid #EAF7FC;}
+
+/* ── CONCEPT 02 ── */
+#c2{background:#1A1D23;color:#F2F7F8}
+#c2 .id-card{background:#20242A; border:1px solid rgba(255,255,255,0.05);}
+#c2 .ui-card{background:#20242A; border:1px solid rgba(255,255,255,0.05);}
+.wonder-glass { background: rgba(26, 29, 35, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+
+/* ── CONCEPT 03 ── */
+#c3{background:#F7F3EF;color:#47434F}
+#c3 .id-card{background:#fff; border:1px solid #D6D0D8;}
+#c3 .ui-card{background:#fff; border:1px solid #D6D0D8;}
+</style>
 </head>
 <body>
 
-<nav class="nav-master">
-    <a href="#c1" id="link-c1" class="active-fresh">01 Fresh</a>
-    <a href="#c2" id="link-c2">02 Tech</a>
-    <a href="#c3" id="link-c3">03 Sanctuary</a>
+<nav class="master-nav" id="masterNav">
+  <a href="#c1" id="nav-c1">01 Fresh</a>
+  <a href="#c2" id="nav-c2">02 Tech</a>
+  <a href="#c3" id="nav-c3">03 Sanctuary</a>
 </nav>
 
-<!-- ╔══════════════════════════════╗ -->
-<!-- ║ CONCEPT 01: COOL & FRESH (VETRO) ║ -->
-<!-- ╚══════════════════════════════╝ -->
-<section id="c1" style="background:#F8FAFB; color:#2D3748;">
-    <div class="text-center py-40">
-        <span style="color:#A8DDEE; font-size:10px; font-weight:900; letter-spacing:5px; text-transform:uppercase;">Direction 01</span>
-        <h1 style="font-family:'Pacaembu'; font-size: clamp(60px, 9vw, 110px); font-weight:700; letter-spacing:-4px; line-height:0.9; margin: 20px 0;">Cool & Fresh</h1>
-        <p style="color:#A8B5BE; font-size:20px; font-weight:300;">Vetro Template · Airy Wellness Aesthetic</p>
-    </div>
+<!-- ──────────────── CONCEPT 01 (VETRO) ──────────────── -->
+<section id="c1">
+  <div class="concept-intro">
+    <span class="concept-label">Concept 01 · Vetro Theme</span>
+    <span class="concept-title" style="font-family:'Pacaembu',sans-serif; font-weight:700;">Pure <span style="color:#A8DDEE">Air.</span></span>
+  </div>
 
-    <!-- Identity Panel -->
-    <div class="id-grid">
-        <div class="id-card" style="background:#fff;">
-            <h4>Palette</h4>
-            <div class="swatches">
-                <div class="sw-row"><div class="sw" style="background:#F8FAFB; border-color:#D9E1E6;"></div><div class="sw-lbl">#F8FAFB</div></div>
-                <div class="sw-row"><div class="sw" style="background:#EAF7FC;"></div><div class="sw-lbl">#EAF7FC</div></div>
-                <div class="sw-row"><div class="sw" style="background:#A8DDEE;"></div><div class="sw-lbl">#A8DDEE</div></div>
-                <div class="sw-row"><div class="sw" style="background:#E6A3C8;"></div><div class="sw-lbl">#E6A3C8</div></div>
-            </div>
-        </div>
-        <div class="id-card" style="background:#fff;">
-            <h4>Typography</h4>
-            <div style="font-family:'Pacaembu'; font-weight:700; font-size:32px;">Pacaembu Bold</div>
-            <div style="font-family:'Pacaembu'; font-size:16px; opacity:0.6; margin-top:8px;">Soft technical curves for modern readability.</div>
-        </div>
-        <div class="id-card" style="background:#fff;">
-            <h4>Buttons & UI</h4>
-            <div class="flex flex-col gap-4">
-                <div style="background:#A8DDEE; color:#fff; padding:15px; border-radius:100px; text-align:center; font-weight:700; font-size:12px; letter-spacing:1px;">SHOP NOW</div>
-                <div class="flex gap-2">
-                    <span class="bg-[#A8DDEE]/15 text-[#A8DDEE] px-4 py-1 rounded-full text-[9px] font-black uppercase">Ergonomic</span>
-                </div>
-            </div>
-        </div>
+  <div class="id-section">
+    <div class="id-card">
+      <div class="id-card-title">Color System</div>
+      <div class="flex gap-4">
+        <div class="flex flex-col"><div style="background:#F8FAFB;width:45px;height:45px;border-radius:10px;border:1px solid #ddd"></div><span class="text-[8px] mt-2 font-bold text-center">Cloud</span></div>
+        <div class="flex flex-col"><div style="background:#A8DDEE;width:45px;height:45px;border-radius:10px"></div><span class="text-[8px] mt-2 font-bold text-center">Blue</span></div>
+        <div class="flex flex-col"><div style="background:#E6A3C8;width:45px;height:45px;border-radius:10px"></div><span class="text-[8px] mt-2 font-bold text-center">Aurora</span></div>
+      </div>
     </div>
+    <div class="id-card">
+      <div class="id-card-title">Typography</div>
+      <div style="font-family:'Pacaembu'; font-weight:700; font-size:24px;">Pacaembu Bold</div>
+      <div style="font-family:'Pacaembu'; font-size:14px; opacity:0.6; margin-top:5px;">Soft curves for a breathable wellness experience.</div>
+    </div>
+    <div class="id-card">
+        <div class="id-card-title">UI Elements</div>
+        <div style="background:#A8DDEE; color:#fff; text-align:center; padding:10px; border-radius:100px; font-weight:700; font-size:11px;">SHOP NOW</div>
+    </div>
+  </div>
 
-    <!-- Web Windows -->
-    <div class="section-tag">Vetro Preset: Desktop & Mobile Sync</div>
-    <div class="device-container">
-        <div class="dk-frame">
-            <div class="dk-chrome"><div class="chrome-dot bg-red-400"></div><div class="chrome-dot bg-yellow-400"></div><div class="chrome-dot bg-green-400"></div><div class="url-bar">velasleep.com (Vetro Theme)</div></div>
-            <div style="background:#F8FAFB;">
-                <nav class="flex justify-between items-center px-12 py-8 bg-white/40 backdrop-blur-xl border-b border-slate-100">
+  <div class="frames-wrap">
+    <div class="frames-section-label">Vetro Adaptation: Desktop & Mobile</div>
+    <div class="desktop-mobile-layout">
+        <div class="desktop-frame">
+            <div class="desktop-chrome" style="background:#EAF7FC"><div class="chrome-dot bg-red-400"></div><div class="chrome-dot bg-yellow-400"></div><div class="chrome-dot bg-green-400"></div><div class="chrome-url">velasleep.com</div></div>
+            <div style="background:#F8FAFB; min-height:400px;">
+                <nav class="flex justify-between items-center px-10 py-6 border-b border-slate-100">
                     <img src="logo.png" class="h-6">
-                    <div class="flex gap-12 text-[11px] font-black uppercase tracking-widest text-slate-300"><a>Pillows</a><a>Science</a><a>Reviews</a></div>
-                    <div class="bg-[#A8DDEE] text-white px-8 py-3 rounded-full font-bold text-xs">Start Trial</div>
+                    <div class="flex gap-8 text-[10px] font-bold uppercase text-slate-300"><a>Shop</a><a>Science</a><a>Reviews</a></div>
+                    <div class="bg-[#A8DDEE] text-white px-6 py-2 rounded-full font-bold text-[10px]">TRIAL</div>
                 </nav>
-                <div class="p-16 flex gap-12 items-center" style="background: linear-gradient(180deg, #fff, #EAF7FC);">
-                    <div class="w-1/2">
-                        <h2 style="font-family:'Pacaembu'; font-size:56px; font-weight:700; line-height:0.95; margin-bottom:24px;">Deep sleep <br><span style="color:#A8DDEE">reimagined.</span></h2>
-                        <p class="text-slate-400 mb-8 max-w-sm">Experience the airy comfort of cervical alignment.</p>
-                        <div style="background:#2D3748; color:#fff; display:inline-block; padding:16px 40px; border-radius:100px; font-weight:700;">Explore Now</div>
-                    </div>
-                    <div class="w-1/2"><img src="hero.jpg" class="vetro-round shadow-2xl"></div>
+                <div class="p-16 grid grid-cols-2 gap-10 items-center">
+                    <div><h2 style="font-family:'Pacaembu'; font-size:48px; font-weight:700; line-height:1; margin-bottom:20px;">Wake up <span style="color:#A8DDEE">restored.</span></h2><div style="background:#2D3748; color:#fff; display:inline-block; padding:12px 30px; border-radius:100px; font-size:12px; font-weight:700;">Explore collection</div></div>
+                    <img src="hero.jpg" style="border-radius:32px; box-shadow:0 20px 40px rgba(0,0,0,0.1)">
                 </div>
             </div>
         </div>
-        <div class="mob-outer">
-            <div class="mob-screen" style="background:#F8FAFB">
-                <div class="px-8 py-5 flex justify-between items-center bg-white border-b border-slate-50"><span>☰</span><img src="logo.png" class="h-4"><span>🛒</span></div>
-                <div class="p-8 text-center" style="background:var(--mist)">
-                    <h3 style="font-family:'Pacaembu'; font-size:36px; font-weight:700; line-height:1; margin-bottom:15px">Pure Air.</h3>
-                    <img src="hero.jpg" class="rounded-[24px] shadow-lg mb-8">
-                    <div style="background:#A8DDEE; color:#fff; padding:14px; border-radius:100px; font-weight:700; font-size:12px;">SHOP COLLECTION</div>
+        <div class="mobile-outer" style="background:#EAF7FC">
+            <div class="mobile-inner" style="background:#F8FAFB">
+                <div class="p-6 text-center pt-10">
+                    <img src="logo.png" class="h-4 mx-auto mb-10 opacity-30">
+                    <h3 style="font-family:'Pacaembu'; font-size:26px; font-weight:700; line-height:1; margin-bottom:15px;">Pure Air Technology.</h3>
+                    <img src="hero.jpg" style="border-radius:24px; margin-bottom:20px;">
+                    <div style="background:#A8DDEE; color:#fff; padding:15px; border-radius:100px; font-weight:700; font-size:12px;">SHOP NOW</div>
                 </div>
             </div>
         </div>
     </div>
+  </div>
 </section>
 
-<!-- ╔══════════════════════════════╗ -->
-<!-- ║ CONCEPT 02: SOFT TECH (WONDER) ║ -->
-<!-- ╚══════════════════════════════╝ -->
-<section id="c2" style="background:#20242A; color:#F2F7F8;">
-    <div class="text-center py-40">
-        <span style="color:#1F8FA3; font-size:10px; font-weight:900; letter-spacing:5px; text-transform:uppercase;">Direction 02</span>
-        <h1 style="font-family:'Sora'; font-size: clamp(60px, 9vw, 110px); font-weight:700; letter-spacing:-4px; line-height:0.9; margin: 20px 0;">Soft Tech</h1>
-        <p style="color:rgba(242,247,248,0.3); font-size:20px; font-weight:300;">Wonder Template · Premium Sleep-Tech</p>
-    </div>
+<!-- ──────────────── CONCEPT 02 (WONDER) ──────────────── -->
+<section id="c2">
+  <div class="concept-intro">
+    <span class="concept-label">Concept 02 · Wonder Theme</span>
+    <span class="concept-title" style="font-family:'Sora'; font-weight:700;">Sleep <span style="color:#1F8FA3">Engineered.</span></span>
+  </div>
 
-    <!-- Identity Panel -->
-    <div class="id-grid">
-        <div class="id-card" style="background:#1A1D23; border-color:rgba(31,143,163,0.2);">
-            <h4>Tech Palette</h4>
-            <div class="swatches">
-                <div class="sw-row"><div class="sw" style="background:#20242A;"></div><div class="sw-lbl" style="color:#fff">#20242A</div></div>
-                <div class="sw-row"><div class="sw" style="background:#1F8FA3;"></div><div class="sw-lbl" style="color:#fff">#1F8FA3</div></div>
-                <div class="sw-row"><div class="sw" style="background:#A8DDEE;"></div><div class="sw-lbl" style="color:#fff">#A8DDEE</div></div>
-                <div class="sw-row"><div class="sw" style="background:#D98DB7;"></div><div class="sw-lbl" style="color:#fff">#D98DB7</div></div>
-            </div>
-        </div>
-        <div class="id-card" style="background:#1A1D23; border-color:rgba(31,143,163,0.2);">
-            <h4>Typography</h4>
-            <div style="font-family:'Sora'; font-weight:700; font-size:32px;">Sora Bold</div>
-            <div style="font-family:'Manrope'; font-size:16px; opacity:0.5; margin-top:8px;">Manrope Regular for technical detail blocks.</div>
-        </div>
-        <div class="id-card" style="background:#1A1D23; border-color:rgba(31,143,163,0.2);">
-            <h4>Interactive UI</h4>
-            <div class="flex flex-col gap-4">
-                <div style="background:#1F8FA3; color:#fff; padding:15px; border-radius:8px; text-align:center; font-weight:700; font-size:12px; font-family:'Sora'">ADD TO CART</div>
-                <div style="border: 1px solid #1F8FA3; color:#1F8FA3; padding:10px; border-radius:8px; text-align:center; font-size:11px; font-weight:700;">SPECS ▾</div>
-            </div>
-        </div>
+  <div class="id-section">
+    <div class="id-card">
+      <div class="id-card-title" style="color:#1F8FA3">Tech Palette</div>
+      <div class="flex gap-4">
+        <div class="flex flex-col"><div style="background:#20242A;width:45px;height:45px;border-radius:10px;border:1px solid #333"></div><span class="text-[8px] mt-2 font-bold text-center">Charcoal</span></div>
+        <div class="flex flex-col"><div style="background:#1F8FA3;width:45px;height:45px;border-radius:10px"></div><span class="text-[8px] mt-2 font-bold text-center">Teal</span></div>
+        <div class="flex flex-col"><div style="background:#D98DB7;width:45px;height:45px;border-radius:10px"></div><span class="text-[8px] mt-2 font-bold text-center">Aurora</span></div>
+      </div>
     </div>
+    <div class="id-card">
+      <div class="id-card-title" style="color:#1F8FA3">Typography</div>
+      <div style="font-family:'Sora'; font-weight:700; font-size:24px;">Sora Bold</div>
+      <div style="font-family:'Manrope'; font-size:14px; opacity:0.5; margin-top:5px;">Structured Manrope for technical precision and clarity.</div>
+    </div>
+    <div class="id-card">
+        <div class="id-card-title" style="color:#1F8FA3">UI Components</div>
+        <div style="background:#1F8FA3; color:#fff; text-align:center; padding:10px; border-radius:8px; font-weight:700; font-size:11px; font-family:'Sora'">ADD TO CART</div>
+    </div>
+  </div>
 
-    <!-- Web Windows -->
-    <div class="section-tag" style="color:#1F8FA3;">Wonder Preset: Dark Mode & Shoppable Video</div>
-    <div class="device-container">
-        <div class="dk-frame" style="background:#20242A; border-color:rgba(255,255,255,0.05);">
-            <div class="dk-chrome" style="background:#111318; border-bottom:1px solid rgba(255,255,255,0.05);">
-                <div class="chrome-dot bg-slate-700"></div><div class="chrome-dot bg-slate-700"></div><div class="chrome-dot bg-slate-700"></div><div class="url-bar" style="background:#20242A; border-color:#2D333B; color:#444">velasleep.com (Wonder Theme)</div>
-            </div>
-            <div style="background:#20242A;">
-                <nav class="wonder-glass flex justify-between items-center px-12 py-6 sticky top-0 z-50">
+  <div class="frames-wrap">
+    <div class="frames-section-label" style="color:#1F8FA3">Wonder Adaptation: Dark Mode & Glass</div>
+    <div class="desktop-mobile-layout">
+        <div class="desktop-frame" style="background:#1A1D23; border: 1px solid rgba(255,255,255,0.05)">
+            <div class="desktop-chrome" style="background:#111318"><div class="chrome-dot bg-slate-700"></div><div class="chrome-dot bg-slate-700"></div><div class="chrome-dot bg-slate-700"></div><div class="chrome-url" style="background:#20242A; border-color:#333; color:#1F8FA3">velasleep.com</div></div>
+            <div style="background:#20242A; min-height:400px;">
+                <nav class="wonder-glass flex justify-between items-center px-12 py-6">
                     <img src="logo.png" class="h-6 invert">
-                    <div class="flex gap-12 text-[10px] font-bold uppercase tracking-widest text-slate-500" style="font-family:'Sora'"><a>Technology</a><a>Specs</a><a>Science</a></div>
-                    <div style="background:#1F8FA3; color:#fff; padding:10px 30px; border-radius:8px; font-weight:700; font-size:11px;">SHOP</div>
+                    <div class="flex gap-12 text-[10px] font-bold uppercase tracking-widest text-slate-500"><a>Tech</a><a>Specs</a><a>Science</a></div>
+                    <div style="background:#1F8FA3; color:#fff; padding:8px 24px; border-radius:8px; font-weight:700; font-size:10px; font-family:'Sora'">SHOP</div>
                 </nav>
-                <div class="p-24 flex flex-col items-center text-center relative">
-                    <div class="absolute inset-0 bg-gradient-to-b from-[#1F8FA3]/15 to-transparent"></div>
-                    <span class="text-[#D98DB7] text-[10px] font-bold tracking-[8px] mb-6 uppercase" style="font-family:'Sora'">Soft Intelligence</span>
-                    <h2 style="font-family:'Sora'; font-size: 72px; font-weight: 700; line-height: 0.9; margin-bottom: 40px;">Sleep <span style="color:#1F8FA3">Engineered.</span></h2>
-                    <img src="product_front.png" class="max-w-md drop-shadow-[0_0_50px_rgba(31,143,163,0.4)]">
+                <div class="p-20 flex flex-col items-center text-center relative">
+                    <div class="absolute inset-0 bg-gradient-to-b from-[#1F8FA3]/10 to-transparent"></div>
+                    <span class="text-[#D98DB7] text-[9px] font-bold tracking-[6px] mb-4 uppercase">Soft Intelligence</span>
+                    <h2 style="font-family:'Sora'; font-size:60px; font-weight:700; line-height:0.9; margin-bottom:30px;">Deep sleep <br><span style="color:#1F8FA3">Engineered.</span></h2>
+                    <img src="product-front.png" style="max-width:320px; filter:drop-shadow(0 0 40px rgba(31,143,163,0.3))">
                 </div>
             </div>
         </div>
-        <div class="mob-outer" style="background:#111318; border-color:rgba(255,255,255,0.05);">
-            <div class="mob-screen" style="background:#20242A">
-                <div class="px-8 py-6 flex justify-between items-center bg-[#1A1D23] border-b border-white/5"><span>☰</span><img src="logo.png" class="h-4 invert"><span>🛒</span></div>
-                <div class="p-8 text-center">
-                    <h3 style="font-family:'Sora'; font-size:26px; font-weight:700; margin-bottom:15px">Innovating rest.</h3>
-                    <div class="bg-[#1A1D23] rounded-2xl p-10 border border-white/5 mb-8"><img src="product-angle.png" class="h-32 mx-auto drop-shadow-2xl"></div>
-                    <div style="background:#1F8FA3; color:#fff; width:100%; padding:15px; border-radius:8px; font-weight:700; font-family:'Sora'">SHOP NOW</div>
+        <div class="mobile-outer" style="background:#111318">
+            <div class="mobile-inner" style="background:#20242A">
+                <div class="px-6 py-4 flex justify-between items-center border-b border-white/5"><span>☰</span><img src="logo.png" class="h-4 invert"><span>🛒</span></div>
+                <div class="p-8 text-center pt-12">
+                    <h3 style="font-family:'Sora'; font-size:24px; font-weight:700; line-height:1; margin-bottom:20px;">Innovation <br>for your neck.</h3>
+                    <div style="background:#111318; padding:30px; border-radius:20px; margin-bottom:20px; border: 1px solid rgba(255,255,255,0.05)">
+                        <img src="product-angle.png">
+                    </div>
+                    <div style="background:#1F8FA3; color:#fff; padding:15px; border-radius:8px; font-weight:700; font-size:12px; font-family:'Sora'">SHOP TECHNOLOGY</div>
                 </div>
             </div>
         </div>
     </div>
+  </div>
 </section>
 
-<!-- ╔══════════════════════════════╗ -->
-<!-- ║ CONCEPT 03: SANCTUARY (BULLET) ║ -->
-<!-- ╚══════════════════════════════╝ -->
-<section id="c3" style="background:#F7F3EF; color:#47434F;">
-    <div class="text-center py-40">
-        <span style="color:#B9A9CC; font-size:10px; font-weight:900; letter-spacing:5px; text-transform:uppercase;">Direction 03</span>
-        <h1 style="font-family:'Lora'; font-size: clamp(60px, 9vw, 110px); font-weight:400; font-style:italic; line-height:0.9; margin: 20px 0;">Sleep Sanctuary</h1>
-        <p style="color:#B9A9CC; font-size:20px; font-weight:300;">Bullet Template · Editorial Wellness Aesthetic</p>
-    </div>
+<!-- ──────────────── CONCEPT 03 (BULLET) ──────────────── -->
+<section id="c3">
+  <div class="concept-intro">
+    <span class="concept-label" style="color:#B9A9CC">Concept 03 · Bullet Theme</span>
+    <span class="concept-title" style="font-family:'Lora'; font-style:italic; font-weight:400; color:#47434F">A softer way<br><span style="color:#B9A9CC">to wake.</span></span>
+  </div>
 
-    <!-- Identity Panel -->
-    <div class="id-grid">
-        <div class="id-card" style="background:#fff; border-color:#D6D0D8;">
-            <h4>Warm Palette</h4>
-            <div class="swatches">
-                <div class="sw-row"><div class="sw" style="background:#F7F3EF;"></div><div class="sw-lbl">#F7F3EF</div></div>
-                <div class="sw-row"><div class="sw" style="background:#D6D0D8;"></div><div class="sw-lbl">#D6D0D8</div></div>
-                <div class="sw-row"><div class="sw" style="background:#B9A9CC;"></div><div class="sw-lbl">#B9A9CC</div></div>
-                <div class="sw-row"><div class="sw" style="background:#47434F;"></div><div class="sw-lbl">#47434F</div></div>
-            </div>
-        </div>
-        <div class="id-card" style="background:#fff; border-color:#D6D0D8;">
-            <h4>Typography</h4>
-            <div style="font-family:'Lora'; font-weight:400; font-style:italic; font-size:32px;">Lora Italic</div>
-            <div style="font-family:'Manrope'; font-size:16px; opacity:0.5; margin-top:8px;">Editorial elegance for quiet brand moments.</div>
-        </div>
-        <div class="id-card" style="background:#fff; border-color:#D6D0D8;">
-            <h4>Editorial UI</h4>
-            <div class="flex flex-col gap-4">
-                <div style="background:#47434F; color:#fff; padding:15px; border-radius:2px; text-align:center; font-weight:400; font-size:14px; font-family:'Lora'">Enter Sanctuary</div>
-                <div style="border-bottom: 1px solid #47434F; width: fit-content; margin: 0 auto; font-size:11px; padding-bottom:2px; letter-spacing:2px; font-weight:700;">VIEW RITUALS</div>
-            </div>
-        </div>
+  <div class="id-section">
+    <div class="id-card">
+      <div class="id-card-title" style="color:#B9A9CC">Warm Palette</div>
+      <div class="flex gap-4">
+        <div class="flex flex-col"><div style="background:#F7F3EF;width:45px;height:45px;border-radius:10px;border:1px solid #D6D0D8"></div><span class="text-[8px] mt-2 font-bold text-center">Moon</span></div>
+        <div class="flex flex-col"><div style="background:#B9A9CC;width:45px;height:45px;border-radius:10px"></div><span class="text-[8px] mt-2 font-bold text-center">Lavender</span></div>
+        <div class="flex flex-col"><div style="background:#47434F;width:45px;height:45px;border-radius:10px"></div><span class="text-[8px] mt-2 font-bold text-center">Graphite</span></div>
+      </div>
     </div>
+    <div class="id-card">
+      <div class="id-card-title" style="color:#B9A9CC">Typography</div>
+      <div style="font-family:'Lora'; font-weight:400; font-style:italic; font-size:24px;">Lora SemiBold Italic</div>
+      <div style="font-family:'Manrope'; font-size:14px; opacity:0.6; margin-top:5px;">Quiet, intimate, and editorial Manrope typography.</div>
+    </div>
+    <div class="id-card">
+        <div class="id-card-title" style="color:#B9A9CC">Editorial UI</div>
+        <div style="background:#47434F; color:#fff; text-align:center; padding:12px; border-radius:2px; font-weight:400; font-size:12px; font-family:'Lora'">Enter Sanctuary</div>
+    </div>
+  </div>
 
-    <!-- Web Windows -->
-    <div class="section-tag" style="color:#B9A9CC;">Bullet Preset: Large Typo & Split Grids</div>
-    <div class="device-container">
-        <div class="dk-frame" style="background:#F7F3EF; border-color:#D6D0D8;">
-            <div class="dk-chrome" style="background:#EDE8E3;"><div class="chrome-dot bg-slate-300"></div><div class="chrome-dot bg-slate-300"></div><div class="chrome-dot bg-slate-300"></div><div class="url-bar">velasleep.com/sanctuary</div></div>
+  <div class="frames-wrap">
+    <div class="frames-section-label" style="color:#B9A9CC">Bullet Adaptation: Editorial & Intimate</div>
+    <div class="desktop-mobile-layout">
+        <div class="desktop-frame" style="background:#F7F3EF; border: 1px solid #D6D0D8">
+            <div class="desktop-chrome" style="background:#EDE8E3; border-bottom: 1px solid #D6D0D8"><div class="chrome-dot bg-slate-300"></div><div class="chrome-dot bg-slate-300"></div><div class="chrome-dot bg-slate-300"></div><div class="chrome-url" style="color:#B9A9CC">velasleep.com/sanctuary</div></div>
             <div style="background:#F7F3EF;">
-                <nav class="flex justify-between items-center px-12 py-10 border-b border-[#D6D0D8] bg-white">
-                    <img src="logo.png" class="h-6 opacity-80">
+                <nav class="flex justify-between items-center px-12 py-10 border-b border-[#D6D0D8]">
+                    <img src="logo.png" class="h-6 opacity-60">
                     <div class="flex gap-16 text-[10px] font-bold uppercase tracking-[4px] text-slate-400"><a>Collection</a><a>Philosophy</a><a>Rituals</a></div>
-                    <div class="flex items-center gap-6">⌕ 🛒</div>
+                    <span>🛒</span>
                 </nav>
-                <div class="grid grid-cols-2 min-h-[500px]">
-                    <div class="p-24 border-r border-[#D6D0D8] flex flex-col justify-center">
-                        <h2 style="font-family:'Lora'; font-size: 60px; font-weight: 400; line-height: 1.1; margin-bottom: 30px;">A softer <br><span style="font-style:italic; color:#B9A9CC;">way to wake.</span></h2>
-                        <p class="text-slate-500 mb-12 max-w-xs leading-loose">Designed to be your most intimate evening ritual.</p>
-                        <div style="background:#47434F; color:#fff; display:inline-block; padding:15px 50px; border-radius:2px; font-family:'Lora'">Shop Now</div>
+                <div class="grid grid-cols-2">
+                    <div class="p-20 border-r border-[#D6D0D8] flex flex-col justify-center">
+                        <h2 style="font-family:'Lora'; font-size:52px; line-height:1.1; margin-bottom:20px;">A softer way <br><span style="font-style:italic; color:#B9A9CC">to wake.</span></h2>
+                        <p class="text-slate-400 mb-10 text-sm leading-relaxed">Inspired by evening rituals and moonlit serenity. Designed for your most peaceful rest.</p>
+                        <div style="background:#47434F; color:#fff; display:inline-block; padding:14px 45px; border-radius:2px; font-size:12px; font-family:'Lora'">Enter Sanctuary</div>
                     </div>
-                    <div class="bg-[#D6D0D8] overflow-hidden">
-                        <img src="lifestyle-girl.jpg" class="w-full h-full object-cover grayscale-[20%] opacity-90">
-                    </div>
+                    <img src="lifestyle-girl.jpg" style="width:100%; height:100%; object-fit:cover; opacity:0.9">
                 </div>
             </div>
         </div>
-        <div class="mob-outer" style="background:#EDE8E3; border-color:#D6D0D8;">
-            <div class="mob-screen" style="background:#F7F3EF">
-                <div class="px-8 py-10 text-center bg-white border-b border-[#D6D0D8]"><img src="logo.png" class="h-4 mx-auto"></div>
+        <div class="mobile-outer" style="background:#EDE8E3">
+            <div class="mobile-inner" style="background:#F7F3EF">
+                <div class="px-8 py-10 flex justify-between items-center border-b border-[#D6D0D8]"><span>☰</span><img src="logo.png" class="h-4 opacity-50"><span>🛒</span></div>
                 <div class="p-10 text-center">
-                    <h3 style="font-family:'Lora'; font-size:36px; font-weight:400; line-height:1.1; margin-bottom:30px">Intimate <br>Rest.</h3>
-                    <img src="lifestyle-girl.jpg" class="shadow-sm mb-10 grayscale-[10%] opacity-90">
-                    <div style="background:#B9A9CC; color:#fff; width:100%; padding:18px; border-radius:2px; font-family:'Lora';">Shop Sanctuary</div>
+                    <h3 style="font-family:'Lora'; font-style:italic; font-size:32px; line-height:1; margin-bottom:20px;">Quiet Nights.</h3>
+                    <img src="lifestyle-girl.jpg" style="border-radius:4px; margin-bottom:25px;">
+                    <div style="background:#B9A9CC; color:#fff; padding:15px; border-radius:2px; font-family:'Lora'; font-size:13px;">SHOP SANCTUARY</div>
                 </div>
             </div>
         </div>
     </div>
+  </div>
 </section>
 
-<footer class="py-20 bg-black text-center">
-    <img src="logo.png" class="h-4 mx-auto mb-10 invert opacity-20">
-    <p class="text-white/20 text-[9px] uppercase tracking-[10px]">VelaSleep Ultimate Guide · 2026</p>
+<footer>
+  <img src="logo.png">
+  <p>VelaSleep Ultimate Guide &middot; 2026</p>
 </footer>
 
 <script>
-    // Active nav logic on scroll
-    window.addEventListener('scroll', () => {
-        const sections = ['c1', 'c2', 'c3'];
-        let active = 'c1';
-        sections.forEach(s => {
-            const el = document.getElementById(s);
-            if(window.scrollY >= el.offsetTop - 300) active = s;
-        });
-        
-        document.querySelectorAll('.nav-master a').forEach(a => a.className = '');
-        const activeLink = document.getElementById('link-' + active);
-        if(active === 'c1') activeLink.className = 'active-fresh';
-        if(active === 'c2') activeLink.className = 'active-tech';
-        if(active === 'c3') activeLink.className = 'active-sanctuary';
-    });
+window.addEventListener('scroll', function() {{
+  const sections = ['c1', 'c2', 'c3'];
+  sections.forEach(id => {{
+    const el = document.getElementById(id);
+    const link = document.getElementById('nav-' + id);
+    const rect = el.getBoundingClientRect();
+    if (rect.top <= 150 && rect.bottom >= 150) {{
+      link.classList.add(id + '-active');
+    }} else {{
+      link.classList.remove(id + '-active');
+    }}
+  }});
+}});
 </script>
-
 </body>
 </html>
