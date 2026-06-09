@@ -1,47 +1,273 @@
-<style>
-    /* Подключаем шрифты ПРАВИЛЬНО */
-    /* ВАЖНО: Проверьте, чтобы расширение (.ttf или .woff2) совпадало с вашими файлами! */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VelaSleep Identity System — Concept 1 Fresh</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        /* ПОДКЛЮЧЕНИЕ ШРИФТА PACAEMBU (локально) */
+        @font-face {
+            font-family: 'Pacaembu';
+            src: url('./fonts/Pacaembu-Bold.ttf') format('truetype');
+            font-weight: 700;
+        }
+        @font-face {
+            font-family: 'Pacaembu';
+            src: url('./fonts/Pacaembu-SemiBold.ttf') format('truetype');
+            font-weight: 600;
+        }
+        @font-face {
+            font-family: 'Pacaembu';
+            src: url('./fonts/Pacaembu-Regular.ttf') format('truetype');
+            font-weight: 400;
+        }
+        @font-face {
+            font-family: 'Pacaembu';
+            src: url('./fonts/Pacaembu-Light.ttf') format('truetype');
+            font-weight: 300;
+        }
 
-    @font-face {
-        font-family: 'Pacaembu';
-        src: url('./fonts/Pacaembu-Bold.ttf') format('truetype'); /* Если у вас .ttf */
-        /* src: url('./fonts/Pacaembu-Bold.woff2') format('woff2'); */ /* Если у вас .woff2 */
-        font-weight: 700;
-        font-style: normal;
-        font-display: swap;
-    }
+        :root {
+            --cloud: #F8FAFB;
+            --mist: #EAF7FC;
+            --blue: #A8DDEE;
+            --pink: #E6A3C8;
+            --gray: #D9E1E6;
+            --dark: #2A3A45;
+        }
 
-    @font-face {
-        font-family: 'Pacaembu';
-        src: url('./fonts/Pacaembu-Regular.ttf') format('truetype');
-        font-weight: 400;
-        font-style: normal;
-        font-display: swap;
-    }
+        body {
+            font-family: 'Pacaembu', sans-serif !important;
+            margin: 0;
+            padding: 0;
+            background: #f0f4f7;
+            color: var(--dark);
+        }
 
-    @font-face {
-        font-family: 'Pacaembu';
-        src: url('./fonts/Pacaembu-Light.ttf') format('truetype');
-        font-weight: 300;
-        font-style: normal;
-        font-display: swap;
-    }
+        /* ── COVER ── */
+        .cover {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #F8FAFB 0%, #EAF7FC 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px;
+        }
+        .cover-badge {
+            background: white;
+            border: 1px solid var(--gray);
+            border-radius: 100px;
+            padding: 10px 24px;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--blue);
+            font-weight: 700;
+            margin-bottom: 32px;
+        }
+        .cover h1 {
+            font-size: clamp(60px, 8vw, 110px);
+            font-weight: 700;
+            line-height: 0.9;
+            color: var(--dark);
+            margin-bottom: 24px;
+        }
+        .cover-sub {
+            font-size: 20px;
+            color: #64748b;
+            font-weight: 300;
+            max-width: 600px;
+        }
 
-    /* Принудительно заставляем Tailwind использовать этот шрифт */
-    :root {
-        --cloud: #F8FAFB;
-        --mist: #EAF7FC;
-        --blue: #A8DDEE;
-        --pink: #E6A3C8;
-    }
+        /* ── IDENTITY SECTION ── */
+        .id-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            padding: 60px;
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+        .id-card {
+            background: white;
+            border-radius: 24px;
+            padding: 32px;
+            border: 1px solid var(--gray);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        }
+        .id-card h4 {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
 
-    body {
-        font-family: 'Pacaembu', sans-serif !important;
-        background-color: var(--cloud);
-    }
+        /* ── SWATCHES ── */
+        .swatch-grid { display: flex; gap: 12px; flex-wrap: wrap; }
+        .sw-item { text-align: center; width: 60px; }
+        .sw-box { width: 60px; height: 60px; border-radius: 14px; margin-bottom: 8px; border: 1px solid rgba(0,0,0,0.05); }
+        .sw-hex { font-size: 9px; font-weight: 700; opacity: 0.5; }
 
-    /* Фикс для заголовков, чтобы они точно подхватили шрифт */
-    h1, h2, h3, h4, button, span, p, a {
-        font-family: 'Pacaembu', sans-serif !important;
-    }
-</style>
+        /* ── MOCKUP FRAMES ── */
+        .mock-lbl {
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            opacity: 0.4;
+            margin: 60px 0 20px;
+            text-align: center;
+        }
+        .browser-frame {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--gray);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.05);
+            max-width: 1200px;
+            margin: 0 auto 80px;
+        }
+        .browser-chrome {
+            background: #f1f5f9;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--gray);
+        }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+
+        .btn-vela {
+            background: var(--blue);
+            color: white;
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 13px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 1. COVER -->
+<div class="cover">
+    <div class="cover-badge">VelaSleep · Shopify Vetro System</div>
+    <h1>Concept 01<br><span style="color:var(--blue)">Cool & Fresh</span></h1>
+    <p class="cover-sub">Identity Guidelines & Interactive Theme Preview</p>
+</div>
+
+<!-- 2. DESIGN IDENTITY PANEL -->
+<div class="id-panel">
+    <!-- Colors -->
+    <div class="id-card">
+        <h4>Color Palette</h4>
+        <div class="swatch-grid">
+            <div class="sw-item"><div class="sw-box" style="background:#F8FAFB"></div><div class="sw-hex">#F8FAFB</div></div>
+            <div class="sw-item"><div class="sw-box" style="background:#EAF7FC"></div><div class="sw-hex">#EAF7FC</div></div>
+            <div class="sw-item"><div class="sw-box" style="background:#A8DDEE"></div><div class="sw-hex">#A8DDEE</div></div>
+            <div class="sw-item"><div class="sw-box" style="background:#D9E1E6"></div><div class="sw-hex">#D9E1E6</div></div>
+            <div class="sw-item"><div class="sw-box" style="background:#E6A3C8"></div><div class="sw-hex">#E6A3C8</div></div>
+        </div>
+    </div>
+
+    <!-- Typography -->
+    <div class="id-card">
+        <h4>Typography (Pacaembu)</h4>
+        <div style="font-weight:700; font-size:32px; line-height:1; margin-bottom:10px;">Bold Display</div>
+        <div style="font-weight:400; font-size:16px; opacity:0.6;">Light & Airy Body Text</div>
+    </div>
+
+    <!-- UI Elements -->
+    <div class="id-card">
+        <h4>UI Elements</h4>
+        <div class="flex flex-col gap-3">
+            <div class="btn-vela">Shop Now</div>
+            <div style="border: 1.5px solid var(--dark); padding: 12px; border-radius:50px; text-align:center; font-size:13px; font-weight:600;">Explore Science</div>
+            <div class="flex gap-2">
+                <span style="background:var(--pink); color:white; font-size:10px; padding:4px 12px; border-radius:20px; font-weight:700;">NEW</span>
+                <span style="background:var(--mist); color:var(--blue); font-size:10px; padding:4px 12px; border-radius:20px; font-weight:700;">ECO-FRIENDLY</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 3. WEB PREVIEW SECTION -->
+<div class="mock-lbl">Interactive Shopify Theme Preview (Vetro Theme)</div>
+
+<div class="browser-frame">
+    <div class="browser-chrome">
+        <div class="dot bg-red-400"></div><div class="dot bg-yellow-400"></div><div class="dot bg-green-400"></div>
+        <div class="ml-4 bg-white rounded-full px-4 py-1 text-[10px] text-slate-400 w-full max-w-sm">velasleep.com/fresh-direction</div>
+    </div>
+
+    <!-- ACTUAL WEBSITE CONTENT -->
+    <div style="background:var(--cloud); padding:0; position:relative;">
+        <!-- Header -->
+        <div class="flex justify-between items-center px-12 py-6 border-b border-[#D9E1E6]/30 bg-white/50 backdrop-blur-md sticky top-0 z-50">
+            <img src="logo.png" class="h-6">
+            <div class="flex gap-10 text-[11px] font-bold uppercase tracking-widest text-slate-400">
+                <a href="#">Pillows</a><a href="#">Science</a><a href="#">Reviews</a>
+            </div>
+            <div class="btn-vela !py-2.5 !px-8">Shop Now</div>
+        </div>
+
+        <!-- Hero -->
+        <div class="grid md:grid-cols-2 gap-12 px-12 py-24 items-center" style="background: linear-gradient(180deg, #fff 0%, var(--mist) 100%);">
+            <div>
+                <h2 style="font-size:72px; font-weight:700; line-height:0.95; margin-bottom:30px;">Wake up <br><span style="color:var(--blue)">restored.</span></h2>
+                <p style="font-size:18px; color: #64748b; font-weight:300; margin-bottom:40px; max-width:400px;">
+                    The premium ergonomic pillow designed for cervical health and a breathable night’s sleep.
+                </p>
+                <div class="btn-vela inline-block !px-12 !py-4 text-lg">Shop Store</div>
+            </div>
+            <div>
+                <img src="hero.jpg" class="rounded-[40px] shadow-2xl">
+            </div>
+        </div>
+
+        <!-- Product Block -->
+        <div class="px-12 py-24 bg-white grid md:grid-cols-3 gap-8">
+            <div class="col-span-1">
+                <h3 style="font-size:32px; font-weight:700; margin-bottom:16px;">Pure Air Technology.</h3>
+                <p style="color:#64748b; font-weight:300;">Advanced open-cell memory foam keeps you 2° cooler than standard pillows.</p>
+            </div>
+            <div class="col-span-1 text-center">
+                <img src="product-front.png" class="h-48 mx-auto mb-4">
+                <div style="font-weight:700; font-size:14px;">The Original Cervical</div>
+                <div style="color:var(--blue); font-weight:700;">$79.00</div>
+            </div>
+            <div class="col-span-1 text-center">
+                <img src="product-angle.png" class="h-48 mx-auto mb-4">
+                <div style="font-weight:700; font-size:14px;">Cloud Comfort Edition</div>
+                <div style="color:var(--blue); font-weight:700;">$89.00</div>
+            </div>
+        </div>
+
+        <!-- Lifestyle/Packaging -->
+        <div class="px-12 py-24 flex flex-col md:flex-row gap-12 items-center" style="background:var(--mist)">
+            <div class="md:w-1/2">
+                <img src="packaging.jpg" class="rounded-[40px] shadow-lg">
+            </div>
+            <div class="md:w-1/2">
+                <h2 style="font-size:40px; font-weight:700; margin-bottom:20px;">Unbox a better morning.</h2>
+                <p style="color:#64748b; font-weight:300; margin-bottom:32px;">Every VelaSleep comes in our premium eco-conscious packaging, including a 100-night trial.</p>
+                <div style="background:var(--dark); color:white; padding:16px 40px; border-radius:50px; display:inline-block; font-weight:700; font-size:13px;">Experience VelaSleep</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER Presentation -->
+<div class="py-20 text-center">
+    <img src="logo.png" class="h-4 mx-auto mb-6 opacity-30 grayscale">
+    <p style="font-size:10px; text-transform:uppercase; letter-spacing:4px; opacity:0.3; font-weight:700;">VelaSleep Brand Presentation 2026</p>
+</div>
+
+</body>
+</html>
