@@ -1,949 +1,299 @@
-python3 << 'PYEOF'
-import json
-
-with open('/home/claude/images.json') as f:
-    imgs = json.load(f)
-
-# Write the massive HTML file
-html = f'''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>VelaSleep — Theme Direction Guide</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Manrope:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{{box-sizing:border-box;margin:0;padding:0}}
-html{{scroll-behavior:smooth}}
-body{{background:#0A0A0A;color:#fff;font-family:'Manrope',sans-serif;line-height:1.6;overflow-x:hidden}}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>VelaSleep | The Ultimatum Brand & UI Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Manrope:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ── LOCAL FONTS (CONCEPT 01) ── */
+        @font-face { font-family: 'Pacaembu'; src: url('./fonts/Pacaembu-Bold.ttf') format('truetype'); font-weight: 700; }
+        @font-face { font-family: 'Pacaembu'; src: url('./fonts/Pacaembu-Regular.ttf') format('truetype'); font-weight: 400; }
 
-/* ── MASTER NAV ── */
-.master-nav{{
-  position:fixed;top:24px;left:50%;transform:translateX(-50%);
-  z-index:9999;
-  background:rgba(10,10,10,0.85);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:100px;
-  padding:5px;
-  display:flex;gap:4px;
-  box-shadow:0 8px 32px rgba(0,0,0,0.4);
-}}
-.master-nav a{{
-  color:rgba(255,255,255,0.4);
-  text-decoration:none;
-  padding:10px 22px;
-  border-radius:100px;
-  font-size:10px;font-weight:700;
-  text-transform:uppercase;letter-spacing:2px;
-  transition:all 0.25s;
-  white-space:nowrap;
-}}
-.master-nav a:hover{{color:#fff}}
-.master-nav a.c1-active{{background:#A8DDEE;color:#1a3a45}}
-.master-nav a.c2-active{{background:#1F8FA3;color:#fff}}
-.master-nav a.c3-active{{background:#B9A9CC;color:#fff}}
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { background: #0A0A0A; color: #fff; font-family: 'Manrope', sans-serif; overflow-x: hidden; }
 
-/* ── SHARED SECTION CHROME ── */
-.concept-intro{{
-  text-align:center;
-  padding:160px 40px 80px;
-}}
-.concept-label{{
-  font-size:9px;font-weight:800;letter-spacing:5px;
-  text-transform:uppercase;opacity:0.3;
-  margin-bottom:16px;display:block;
-}}
-.concept-title{{
-  font-size:clamp(64px,8vw,120px);
-  line-height:0.9;
-  letter-spacing:-4px;
-  display:block;
-}}
+        /* ── MASTER NAVIGATION (TIBU STYLE) ── */
+        .nav-master { position: fixed; top: 25px; left: 50%; transform: translateX(-50%); z-index: 9999; background: rgba(0,0,0,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 5px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.1); display: flex; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        .nav-master a { color: rgba(255,255,255,0.4); text-decoration: none; padding: 10px 24px; border-radius: 100px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; white-space: nowrap; }
+        .nav-master a:hover { color: #fff; }
+        .nav-master a.active-fresh { background: #A8DDEE; color: #1a3a45; }
+        .nav-master a.active-tech { background: #1F8FA3; color: #fff; }
+        .nav-master a.active-sanctuary { background: #B9A9CC; color: #fff; }
 
-/* ── IDENTITY GRID ── */
-.id-section{{
-  max-width:1400px;margin:0 auto;
-  padding:0 60px 80px;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px;
-}}
-@media(max-width:900px){{.id-section{{grid-template-columns:1fr;padding:0 24px 60px}}}}
-.id-card{{
-  border-radius:20px;
-  padding:32px;
-  border:1px solid rgba(0,0,0,0.08);
-}}
-.id-card-title{{
-  font-size:9px;font-weight:800;letter-spacing:4px;
-  text-transform:uppercase;
-  margin-bottom:24px;opacity:0.4;
-}}
+        /* ── IDENTITY PANELS (TIBU STYLE) ── */
+        .id-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1400px; margin: 0 auto; padding: 0 60px 60px; }
+        .id-card { border-radius: 20px; padding: 35px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+        .id-card h4 { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 25px; opacity: 0.4; font-weight: 900; }
+        
+        .swatch { width: 48px; height: 48px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.05); }
+        .sw-lbl { font-size: 8px; text-align: center; margin-top: 8px; font-weight: 800; opacity: 0.6; }
 
-/* ── SWATCHES ── */
-.swatches{{display:flex;gap:12px;flex-wrap:wrap}}
-.swatch-item{{display:flex;flex-direction:column;align-items:center;gap:6px}}
-.swatch{{width:48px;height:48px;border-radius:12px;border:1px solid rgba(0,0,0,0.08)}}
-.swatch-label{{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:1px;opacity:0.5;text-align:center}}
+        /* ── DEVICE FRAMES ── */
+        .device-container { display: grid; grid-template-columns: 1fr 340px; gap: 40px; max-width: 1400px; margin: 0 auto; padding: 0 60px 120px; align-items: start; }
+        @media(max-width: 1000px) { .device-container { grid-template-columns: 1fr; } }
 
-/* ── DEVICE FRAMES ── */
-.frames-wrap{{
-  max-width:1400px;margin:0 auto;
-  padding:0 60px 120px;
-}}
-.frames-section-label{{
-  font-size:9px;font-weight:800;letter-spacing:5px;
-  text-transform:uppercase;
-  text-align:center;
-  margin-bottom:48px;
-  opacity:0.25;
-}}
-.desktop-mobile-layout{{
-  display:grid;
-  grid-template-columns:1fr 320px;
-  gap:32px;
-  align-items:start;
-}}
-@media(max-width:900px){{.desktop-mobile-layout{{grid-template-columns:1fr}}}}
+        .dk-frame { background: #fff; border-radius: 24px; overflow: hidden; box-shadow: 0 50px 100px rgba(0,0,0,0.2); border: 1px solid rgba(0,0,0,0.05); }
+        .dk-chrome { background: #f8fafc; padding: 15px 25px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(0,0,0,0.04); }
+        .chrome-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .url-bar { flex: 1; background: #fff; border: 1px solid rgba(0,0,0,0.05); border-radius: 100px; padding: 5px 20px; font-size: 10px; color: rgba(0,0,0,0.2); margin-left: 20px; }
 
-/* DESKTOP FRAME */
-.desktop-frame{{
-  border-radius:20px;
-  overflow:hidden;
-  box-shadow:0 40px 120px rgba(0,0,0,0.25);
-}}
-.desktop-chrome{{
-  display:flex;align-items:center;gap:8px;
-  padding:14px 20px;
-}}
-.chrome-dot{{width:10px;height:10px;border-radius:50%}}
-.chrome-url{{
-  margin-left:12px;
-  padding:6px 14px;
-  border-radius:6px;
-  font-size:10px;font-weight:500;
-  flex:1;max-width:320px;
-}}
+        .mob-outer { background: #fff; border-radius: 50px; border: 10px solid #f1f5f9; padding: 10px; box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
+        .mob-screen { border-radius: 32px; overflow: hidden; height: 620px; overflow-y: auto; border: 1px solid rgba(0,0,0,0.05); }
 
-/* MOBILE FRAME */
-.mobile-outer{{
-  border-radius:44px;
-  padding:10px;
-  position:relative;
-}}
-.mobile-inner{{
-  border-radius:36px;
-  overflow:hidden;
-  max-height:680px;
-  overflow-y:auto;
-}}
-.mobile-inner::-webkit-scrollbar{{width:0}}
+        .section-tag { font-size: 10px; letter-spacing: 5px; text-transform: uppercase; opacity: 0.25; text-align: center; margin: 120px 0 40px; font-weight: 900; }
 
-/* ── UI SHOWCASE (buttons, badges, inputs) ── */
-.ui-showcase{{
-  max-width:1400px;margin:0 auto;
-  padding:0 60px 80px;
-  display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
-}}
-@media(max-width:1100px){{.ui-showcase{{grid-template-columns:repeat(2,1fr)}}}}
-@media(max-width:600px){{.ui-showcase{{grid-template-columns:1fr;padding:0 24px 60px}}}}
-.ui-card{{
-  border-radius:20px;padding:28px;
-  display:flex;flex-direction:column;gap:16px;
-}}
-
-/* ── DIVIDERS ── */
-.concept-divider{{
-  height:1px;
-  max-width:1400px;margin:0 auto 80px;
-  opacity:0.08;
-  background:#fff;
-}}
-
-/* ── FOOTER ── */
-footer{{
-  background:#000;
-  text-align:center;
-  padding:60px 40px;
-}}
-footer img{{height:16px;opacity:0.15;filter:invert(1)}}
-footer p{{margin-top:24px;font-size:9px;letter-spacing:8px;text-transform:uppercase;color:rgba(255,255,255,0.15)}}
-
-/* ─────────────────────────────────────────────────────── */
-/* CONCEPT 01 — VETRO · COOL & FRESH                      */
-/* ─────────────────────────────────────────────────────── */
-#c1{{background:#F8FAFB;color:#2D3748}}
-#c1 .concept-label{{color:#A8DDEE;opacity:1}}
-#c1 .concept-title{{color:#2D3748;font-family:'Sora',sans-serif;font-weight:700}}
-#c1 .id-card{{background:#fff;border-color:rgba(168,221,238,0.2)}}
-#c1 .id-card-title{{color:#2D3748}}
-#c1 .swatch-label{{color:#2D3748}}
-#c1 .frames-section-label{{color:#2D3748}}
-#c1 .desktop-frame{{background:#fff;border:1px solid rgba(168,221,238,0.3)}}
-#c1 .desktop-chrome{{background:#EAF7FC;border-bottom:1px solid rgba(168,221,238,0.3)}}
-#c1 .chrome-url{{background:#fff;color:#A8DDEE;border:1px solid rgba(168,221,238,0.3)}}
-#c1 .mobile-outer{{background:#EAF7FC;border:6px solid #EAF7FC}}
-#c1 .mobile-inner{{background:#F8FAFB}}
-#c1 .ui-card{{background:#fff;border:1px solid rgba(168,221,238,0.2)}}
-#c1 .concept-divider{{background:#A8DDEE;opacity:0.2}}
-/* C1 nav dot active */
-.nav-c1{{background:#A8DDEE;color:#1a3a45 !important}}
-
-/* ─────────────────────────────────────────────────────── */
-/* CONCEPT 02 — WONDER · SOFT TECH                        */
-/* ─────────────────────────────────────────────────────── */
-#c2{{background:#1A1D23;color:#F2F7F8}}
-#c2 .concept-label{{color:#1F8FA3;opacity:1}}
-#c2 .concept-title{{color:#F2F7F8;font-family:'Sora',sans-serif;font-weight:700}}
-#c2 .id-card{{background:#20242A;border-color:rgba(31,143,163,0.2)}}
-#c2 .id-card-title{{color:#1F8FA3;opacity:1}}
-#c2 .swatch-label{{color:#F2F7F8;opacity:0.5}}
-#c2 .frames-section-label{{color:#1F8FA3;opacity:0.8}}
-#c2 .desktop-frame{{background:#20242A;border:1px solid rgba(31,143,163,0.15)}}
-#c2 .desktop-chrome{{background:#111318;border-bottom:1px solid rgba(255,255,255,0.05)}}
-#c2 .chrome-url{{background:#20242A;color:#1F8FA3;border:1px solid rgba(31,143,163,0.2)}}
-#c2 .mobile-outer{{background:#111318;border:6px solid #111318}}
-#c2 .mobile-inner{{background:#20242A}}
-#c2 .ui-card{{background:#20242A;border:1px solid rgba(31,143,163,0.15)}}
-#c2 .concept-divider{{background:#1F8FA3;opacity:0.15}}
-
-/* ─────────────────────────────────────────────────────── */
-/* CONCEPT 03 — BULLET · SANCTUARY                        */
-/* ─────────────────────────────────────────────────────── */
-#c3{{background:#F7F3EF;color:#47434F}}
-#c3 .concept-label{{color:#B9A9CC;opacity:1}}
-#c3 .concept-title{{color:#47434F;font-family:'Lora',serif;font-style:italic;font-weight:400}}
-#c3 .id-card{{background:#fff;border-color:rgba(185,169,204,0.2)}}
-#c3 .id-card-title{{color:#B9A9CC;opacity:1}}
-#c3 .swatch-label{{color:#47434F}}
-#c3 .frames-section-label{{color:#B9A9CC;opacity:0.8}}
-#c3 .desktop-frame{{background:#F7F3EF;border:1px solid rgba(185,169,204,0.3)}}
-#c3 .desktop-chrome{{background:#EDE8E3;border-bottom:1px solid rgba(185,169,204,0.3)}}
-#c3 .chrome-url{{background:#fff;color:#B9A9CC;border:1px solid rgba(185,169,204,0.2)}}
-#c3 .mobile-outer{{background:#EDE8E3;border:6px solid #EDE8E3}}
-#c3 .mobile-inner{{background:#F7F3EF}}
-#c3 .ui-card{{background:#fff;border:1px solid rgba(185,169,204,0.2)}}
-#c3 .concept-divider{{background:#B9A9CC;opacity:0.2}}
-
-/* active nav scroll states */
-</style>
+        /* ── THEME DNA OVERRIDES ── */
+        /* Vetro: Roundness & Airy */
+        .vetro-round { border-radius: 32px; }
+        /* Wonder: Glass & Dark */
+        .wonder-glass { background: rgba(26, 29, 35, 0.75); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    </style>
 </head>
 <body>
 
-<nav class="master-nav" id="masterNav">
-  <a href="#c1" id="nav-c1">01 Fresh</a>
-  <a href="#c2" id="nav-c2">02 Tech</a>
-  <a href="#c3" id="nav-c3">03 Sanctuary</a>
+<nav class="nav-master">
+    <a href="#c1" id="link-c1" class="active-fresh">01 Fresh</a>
+    <a href="#c2" id="link-c2">02 Tech</a>
+    <a href="#c3" id="link-c3">03 Sanctuary</a>
 </nav>
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!--  CONCEPT 01 — VETRO · COOL & FRESH                         -->
-<!-- ═══════════════════════════════════════════════════════════ -->
-<section id="c1">
-  <div class="concept-intro">
-    <span class="concept-label">Concept 01 · Vetro Theme · Cool & Fresh</span>
-    <span class="concept-title" style="font-family:'Sora',sans-serif;font-weight:700;">Deep Sleep<br><span style="color:#A8DDEE">Reimagined.</span></span>
-  </div>
+<!-- ╔══════════════════════════════╗ -->
+<!-- ║ CONCEPT 01: COOL & FRESH (VETRO) ║ -->
+<!-- ╚══════════════════════════════╝ -->
+<section id="c1" style="background:#F8FAFB; color:#2D3748;">
+    <div class="text-center py-40">
+        <span style="color:#A8DDEE; font-size:10px; font-weight:900; letter-spacing:5px; text-transform:uppercase;">Direction 01</span>
+        <h1 style="font-family:'Pacaembu'; font-size: clamp(60px, 9vw, 110px); font-weight:700; letter-spacing:-4px; line-height:0.9; margin: 20px 0;">Cool & Fresh</h1>
+        <p style="color:#A8B5BE; font-size:20px; font-weight:300;">Vetro Template · Airy Wellness Aesthetic</p>
+    </div>
 
-  <!-- IDENTITY -->
-  <div class="id-section">
-    <!-- Colors -->
-    <div class="id-card">
-      <div class="id-card-title">Color System</div>
-      <div class="swatches">
-        <div class="swatch-item"><div class="swatch" style="background:#F8FAFB;border-color:#D9E1E6"></div><div class="swatch-label">#F8FAFB<br>Cloud White</div></div>
-        <div class="swatch-item"><div class="swatch" style="background:#EAF7FC"></div><div class="swatch-label">#EAF7FC<br>Ice Mist</div></div>
-        <div class="swatch-item"><div class="swatch" style="background:#A8DDEE"></div><div class="swatch-label">#A8DDEE<br>Vela Blue</div></div>
-        <div class="swatch-item"><div class="swatch" style="background:#D9E1E6"></div><div class="swatch-label">#D9E1E6<br>Fog Gray</div></div>
-        <div class="swatch-item"><div class="swatch" style="background:#E6A3C8"></div><div class="swatch-label">#E6A3C8<br>Aurora Pink</div></div>
-      </div>
+    <!-- Identity Panel -->
+    <div class="id-grid">
+        <div class="id-card" style="background:#fff;">
+            <h4>Palette</h4>
+            <div class="swatches">
+                <div class="sw-row"><div class="sw" style="background:#F8FAFB; border-color:#D9E1E6;"></div><div class="sw-lbl">#F8FAFB</div></div>
+                <div class="sw-row"><div class="sw" style="background:#EAF7FC;"></div><div class="sw-lbl">#EAF7FC</div></div>
+                <div class="sw-row"><div class="sw" style="background:#A8DDEE;"></div><div class="sw-lbl">#A8DDEE</div></div>
+                <div class="sw-row"><div class="sw" style="background:#E6A3C8;"></div><div class="sw-lbl">#E6A3C8</div></div>
+            </div>
+        </div>
+        <div class="id-card" style="background:#fff;">
+            <h4>Typography</h4>
+            <div style="font-family:'Pacaembu'; font-weight:700; font-size:32px;">Pacaembu Bold</div>
+            <div style="font-family:'Pacaembu'; font-size:16px; opacity:0.6; margin-top:8px;">Soft technical curves for modern readability.</div>
+        </div>
+        <div class="id-card" style="background:#fff;">
+            <h4>Buttons & UI</h4>
+            <div class="flex flex-col gap-4">
+                <div style="background:#A8DDEE; color:#fff; padding:15px; border-radius:100px; text-align:center; font-weight:700; font-size:12px; letter-spacing:1px;">SHOP NOW</div>
+                <div class="flex gap-2">
+                    <span class="bg-[#A8DDEE]/15 text-[#A8DDEE] px-4 py-1 rounded-full text-[9px] font-black uppercase">Ergonomic</span>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- Typography -->
-    <div class="id-card">
-      <div class="id-card-title">Typography · Sora</div>
-      <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:28px;color:#2D3748;line-height:1.1;margin-bottom:10px">Sora Bold<br>Heading Style</div>
-      <div style="font-family:'Sora',sans-serif;font-weight:400;font-size:15px;color:#4A6375;line-height:1.6">Sora Regular for body copy and product descriptions. Clean, modern, breathable.</div>
-      <div style="font-family:'Sora',sans-serif;font-weight:300;font-size:12px;color:#A8DDEE;margin-top:8px;letter-spacing:3px;text-transform:uppercase">LIGHT · CAPTIONS</div>
-    </div>
-    <!-- Mood -->
-    <div class="id-card" style="background:linear-gradient(135deg,#EAF7FC,#fff)">
-      <div class="id-card-title">Brand Mood</div>
-      <div style="display:flex;flex-wrap:wrap;gap:8px">
-        <span style="background:#A8DDEE20;border:1px solid #A8DDEE;color:#4A7A8A;padding:6px 14px;border-radius:100px;font-size:10px;font-weight:700;font-family:'Sora'">CLEAN</span>
-        <span style="background:#E6A3C820;border:1px solid #E6A3C8;color:#9A5A7A;padding:6px 14px;border-radius:100px;font-size:10px;font-weight:700;font-family:'Sora'">AIRY</span>
-        <span style="background:#A8DDEE20;border:1px solid #A8DDEE;color:#4A7A8A;padding:6px 14px;border-radius:100px;font-size:10px;font-weight:700;font-family:'Sora'">BREATHABLE</span>
-        <span style="background:#EAF7FC;border:1px solid #D9E1E6;color:#2D3748;padding:6px 14px;border-radius:100px;font-size:10px;font-weight:700;font-family:'Sora'">WELLNESS</span>
-        <span style="background:#E6A3C820;border:1px solid #E6A3C8;color:#9A5A7A;padding:6px 14px;border-radius:100px;font-size:10px;font-weight:700;font-family:'Sora'">SOFT</span>
-      </div>
-    </div>
-  </div>
 
-  <!-- UI KIT -->
-  <div class="ui-showcase" style="padding-bottom:40px">
-    <!-- Primary Button -->
-    <div class="ui-card">
-      <div class="id-card-title" style="color:#2D3748">Primary Button</div>
-      <button style="background:#A8DDEE;color:#fff;border:none;border-radius:100px;padding:14px 28px;font-family:'Sora',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;cursor:pointer;transition:all 0.2s;display:block;width:100%;box-shadow:0 4px 16px #A8DDEE44">SHOP NOW</button>
-      <button style="background:#2D3748;color:#fff;border:none;border-radius:100px;padding:14px 28px;font-family:'Sora',sans-serif;font-weight:700;font-size:13px;cursor:pointer;display:block;width:100%">EXPLORE COLLECTION</button>
-      <button style="background:transparent;color:#A8DDEE;border:2px solid #A8DDEE;border-radius:100px;padding:12px 28px;font-family:'Sora',sans-serif;font-weight:700;font-size:13px;cursor:pointer;display:block;width:100%">LEARN MORE</button>
-    </div>
-    <!-- Badges -->
-    <div class="ui-card">
-      <div class="id-card-title" style="color:#2D3748">Badges & Tags</div>
-      <div style="display:flex;flex-wrap:wrap;gap:8px">
-        <span style="background:#A8DDEE;color:#fff;padding:5px 12px;border-radius:100px;font-size:9px;font-weight:800;font-family:'Sora';letter-spacing:2px">BESTSELLER</span>
-        <span style="background:#E6A3C820;border:1px solid #E6A3C8;color:#9A5A7A;padding:5px 12px;border-radius:100px;font-size:9px;font-weight:800;font-family:'Sora';letter-spacing:2px">NEW</span>
-        <span style="background:#EAF7FC;border:1px solid #D9E1E6;color:#4A6375;padding:5px 12px;border-radius:100px;font-size:9px;font-weight:700;font-family:'Sora'">100-Night Trial</span>
-        <span style="background:#A8DDEE15;border:1px solid #A8DDEE40;color:#4A7A8A;padding:5px 12px;border-radius:100px;font-size:9px;font-weight:700;font-family:'Sora'">Air-Flow Tech</span>
-      </div>
-      <div style="height:1px;background:#D9E1E6;margin:4px 0"></div>
-      <div style="font-size:18px;font-family:'Sora',sans-serif;font-weight:700;color:#2D3748">$89 <span style="font-size:13px;font-weight:400;color:#A8B5BE;text-decoration:line-through">$119</span></div>
-      <div style="font-size:11px;color:#A8DDEE;font-weight:600">⭐ 4.9 · 2,847 reviews</div>
-    </div>
-    <!-- Product Card -->
-    <div class="ui-card" style="padding:0;overflow:hidden;border-radius:20px;border:1px solid rgba(168,221,238,0.2)">
-      <div style="background:#EAF7FC;padding:28px;text-align:center;min-height:160px;display:flex;align-items:center;justify-content:center">
-        <img src="{imgs['product_front']}" style="height:120px;object-fit:contain;filter:drop-shadow(0 8px 20px rgba(168,221,238,0.4))" alt="VelaSleep Pillow">
-      </div>
-      <div style="padding:20px;background:#fff">
-        <div style="font-size:9px;font-weight:800;letter-spacing:3px;color:#A8DDEE;font-family:'Sora';margin-bottom:6px">ORIGINAL CERVICAL</div>
-        <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:15px;color:#2D3748;margin-bottom:4px">VelaSleep Pro Pillow</div>
-        <div style="font-size:12px;color:#8FA3B0;margin-bottom:12px">Ergonomic · Memory Foam</div>
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <span style="font-family:'Sora',sans-serif;font-weight:700;font-size:18px;color:#2D3748">$89</span>
-          <button style="background:#A8DDEE;color:#fff;border:none;border-radius:100px;padding:8px 18px;font-size:11px;font-weight:700;font-family:'Sora';cursor:pointer">ADD TO CART</button>
-        </div>
-      </div>
-    </div>
-    <!-- Nav / Header preview -->
-    <div class="ui-card" style="padding:0;overflow:hidden;border-radius:20px;border:1px solid rgba(168,221,238,0.2)">
-      <div style="background:#fff;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #EAF7FC">
-        <img src="{imgs['logo']}" style="height:18px;object-fit:contain" alt="VelaSleep">
-        <div style="display:flex;gap:16px">
-          <span style="font-size:9px;font-weight:700;color:#8FA3B0;letter-spacing:2px;font-family:'Sora'">PILLOWS</span>
-          <span style="font-size:9px;font-weight:700;color:#8FA3B0;letter-spacing:2px;font-family:'Sora'">SCIENCE</span>
-          <span style="font-size:9px;font-weight:700;color:#8FA3B0;letter-spacing:2px;font-family:'Sora'">REVIEWS</span>
-        </div>
-        <span style="background:#A8DDEE;color:#fff;padding:7px 14px;border-radius:100px;font-size:10px;font-weight:700;font-family:'Sora'">TRIAL</span>
-      </div>
-      <div style="background:#EAF7FC;padding:20px;text-align:center">
-        <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:13px;color:#2D3748;margin-bottom:6px">Header — Light Mode</div>
-        <div style="font-size:11px;color:#8FA3B0">Sticky transparent nav with<br>Vela Blue CTA pill</div>
-      </div>
-      <div style="background:#fff;padding:16px 20px">
-        <div class="id-card-title" style="color:#2D3748;margin-bottom:12px">Search Input</div>
-        <div style="border:1.5px solid #A8DDEE;border-radius:100px;padding:10px 18px;display:flex;align-items:center;gap:8px">
-          <span style="color:#A8DDEE;font-size:14px">⌕</span>
-          <span style="font-size:12px;color:#B5C5CD;font-family:'Sora'">Search pillows...</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- BROWSER + MOBILE PREVIEW -->
-  <div class="frames-wrap">
-    <div class="frames-section-label">Vetro Theme Preview · Desktop + Mobile</div>
-    <div class="desktop-mobile-layout">
-      <!-- DESKTOP -->
-      <div class="desktop-frame">
-        <div class="desktop-chrome">
-          <div class="chrome-dot" style="background:#FC6058"></div>
-          <div class="chrome-dot" style="background:#FEC02F"></div>
-          <div class="chrome-dot" style="background:#2ACA44"></div>
-          <div class="chrome-url">velasleep.com</div>
-        </div>
-        <!-- PAGE CONTENT -->
-        <div style="background:#F8FAFB">
-          <!-- NAV -->
-          <div style="background:#fff;border-bottom:1px solid #EAF7FC;padding:18px 40px;display:flex;justify-content:space-between;align-items:center">
-            <img src="{imgs['logo']}" style="height:22px" alt="VelaSleep">
-            <div style="display:flex;gap:32px">
-              <span style="font-size:10px;font-weight:700;color:#8FA3B0;letter-spacing:2px;font-family:'Sora'">PILLOWS</span>
-              <span style="font-size:10px;font-weight:700;color:#8FA3B0;letter-spacing:2px;font-family:'Sora'">SCIENCE</span>
-              <span style="font-size:10px;font-weight:700;color:#8FA3B0;letter-spacing:2px;font-family:'Sora'">REVIEWS</span>
-            </div>
-            <button style="background:#A8DDEE;color:#fff;border:none;border-radius:100px;padding:10px 24px;font-size:11px;font-weight:700;font-family:'Sora';cursor:pointer">100-NIGHT TRIAL</button>
-          </div>
-          <!-- HERO -->
-          <div style="display:grid;grid-template-columns:1fr 1fr;min-height:420px;background:linear-gradient(160deg,#fff 0%,#EAF7FC 100%)">
-            <div style="padding:60px 40px;display:flex;flex-direction:column;justify-content:center">
-              <span style="font-size:9px;font-weight:800;letter-spacing:4px;color:#A8DDEE;font-family:'Sora';margin-bottom:16px;display:block">ERGONOMIC SLEEP TECHNOLOGY</span>
-              <h1 style="font-family:'Sora',sans-serif;font-weight:700;font-size:42px;line-height:1;color:#2D3748;margin-bottom:20px">Deep sleep<br><span style="color:#A8DDEE">reimagined.</span></h1>
-              <p style="font-size:13px;color:#8FA3B0;line-height:1.7;margin-bottom:28px;max-width:320px">Ergonomic cervical support designed by sleep scientists. Wake up without neck pain.</p>
-              <div style="display:flex;gap:12px">
-                <button style="background:#2D3748;color:#fff;border:none;border-radius:100px;padding:14px 28px;font-size:12px;font-weight:700;font-family:'Sora';cursor:pointer">SHOP NOW</button>
-                <button style="background:transparent;color:#A8DDEE;border:2px solid #A8DDEE;border-radius:100px;padding:12px 24px;font-size:12px;font-weight:700;font-family:'Sora';cursor:pointer">LEARN MORE</button>
-              </div>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:center;padding:40px;background:linear-gradient(135deg,#EAF7FC,#F8FAFB)">
-              <img src="{imgs['hero']}" style="width:100%;border-radius:24px;box-shadow:0 20px 60px rgba(168,221,238,0.3);object-fit:cover" alt="VelaSleep Hero">
-            </div>
-          </div>
-          <!-- PRODUCT GRID -->
-          <div style="padding:48px 40px">
-            <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:24px;color:#2D3748;margin-bottom:8px">Our Collection</div>
-            <div style="font-size:12px;color:#8FA3B0;margin-bottom:32px">Engineered for every sleep position</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-              <div style="background:#fff;border-radius:20px;padding:24px;border:1px solid #EAF7FC;text-align:center">
-                <div style="background:#EAF7FC;border-radius:14px;padding:24px;margin-bottom:16px">
-                  <img src="{imgs['product_front']}" style="height:100px;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(168,221,238,0.4))" alt="Product Front">
+    <!-- Web Windows -->
+    <div class="section-tag">Vetro Preset: Desktop & Mobile Sync</div>
+    <div class="device-container">
+        <div class="dk-frame">
+            <div class="dk-chrome"><div class="chrome-dot bg-red-400"></div><div class="chrome-dot bg-yellow-400"></div><div class="chrome-dot bg-green-400"></div><div class="url-bar">velasleep.com (Vetro Theme)</div></div>
+            <div style="background:#F8FAFB;">
+                <nav class="flex justify-between items-center px-12 py-8 bg-white/40 backdrop-blur-xl border-b border-slate-100">
+                    <img src="logo.png" class="h-6">
+                    <div class="flex gap-12 text-[11px] font-black uppercase tracking-widest text-slate-300"><a>Pillows</a><a>Science</a><a>Reviews</a></div>
+                    <div class="bg-[#A8DDEE] text-white px-8 py-3 rounded-full font-bold text-xs">Start Trial</div>
+                </nav>
+                <div class="p-16 flex gap-12 items-center" style="background: linear-gradient(180deg, #fff, #EAF7FC);">
+                    <div class="w-1/2">
+                        <h2 style="font-family:'Pacaembu'; font-size:56px; font-weight:700; line-height:0.95; margin-bottom:24px;">Deep sleep <br><span style="color:#A8DDEE">reimagined.</span></h2>
+                        <p class="text-slate-400 mb-8 max-w-sm">Experience the airy comfort of cervical alignment.</p>
+                        <div style="background:#2D3748; color:#fff; display:inline-block; padding:16px 40px; border-radius:100px; font-weight:700;">Explore Now</div>
+                    </div>
+                    <div class="w-1/2"><img src="hero.jpg" class="vetro-round shadow-2xl"></div>
                 </div>
-                <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px;color:#2D3748;margin-bottom:4px">Original Cervical</div>
-                <div style="font-size:11px;color:#8FA3B0;margin-bottom:12px">For back & side sleepers</div>
-                <div style="display:flex;justify-content:space-between;align-items:center">
-                  <span style="font-weight:700;font-family:'Sora';color:#2D3748">$89</span>
-                  <button style="background:#A8DDEE;color:#fff;border:none;border-radius:100px;padding:7px 16px;font-size:10px;font-weight:700;cursor:pointer">ADD TO CART</button>
-                </div>
-              </div>
-              <div style="background:#fff;border-radius:20px;padding:24px;border:1px solid #EAF7FC;text-align:center">
-                <div style="background:#EAF7FC;border-radius:14px;padding:24px;margin-bottom:16px">
-                  <img src="{imgs['product_angle']}" style="height:100px;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(168,221,238,0.4))" alt="Product Angle">
-                </div>
-                <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px;color:#2D3748;margin-bottom:4px">Butterfly Wings</div>
-                <div style="font-size:11px;color:#8FA3B0;margin-bottom:12px">For all sleep positions</div>
-                <div style="display:flex;justify-content:space-between;align-items:center">
-                  <span style="font-weight:700;font-family:'Sora';color:#2D3748">$109</span>
-                  <button style="background:#A8DDEE;color:#fff;border:none;border-radius:100px;padding:7px 16px;font-size:10px;font-weight:700;cursor:pointer">ADD TO CART</button>
-                </div>
-              </div>
             </div>
-          </div>
-          <!-- STATS BAR -->
-          <div style="background:#EAF7FC;padding:32px 40px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;text-align:center;border-top:1px solid #D9E1E6">
-            <div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:28px;color:#A8DDEE">98%</div><div style="font-size:10px;letter-spacing:2px;color:#8FA3B0;text-transform:uppercase;margin-top:4px">Neck Pain Relief</div></div>
-            <div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:28px;color:#A8DDEE">100</div><div style="font-size:10px;letter-spacing:2px;color:#8FA3B0;text-transform:uppercase;margin-top:4px">Night Trial</div></div>
-            <div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:28px;color:#A8DDEE">4.9★</div><div style="font-size:10px;letter-spacing:2px;color:#8FA3B0;text-transform:uppercase;margin-top:4px">Average Rating</div></div>
-          </div>
         </div>
-      </div>
-
-      <!-- MOBILE -->
-      <div class="mobile-outer">
-        <div class="mobile-inner">
-          <!-- Mobile Nav -->
-          <div style="background:#fff;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #EAF7FC;position:sticky;top:0;z-index:10">
-            <span style="font-size:18px;color:#8FA3B0">☰</span>
-            <img src="{imgs['logo']}" style="height:18px" alt="VelaSleep">
-            <span style="font-size:16px;color:#A8DDEE">⊕</span>
-          </div>
-          <!-- Mobile Hero -->
-          <div style="background:linear-gradient(180deg,#EAF7FC,#F8FAFB);padding:32px 20px;text-align:center">
-            <span style="font-size:8px;font-weight:800;letter-spacing:4px;color:#A8DDEE;font-family:'Sora';display:block;margin-bottom:12px">SLEEP TECHNOLOGY</span>
-            <h2 style="font-family:'Sora',sans-serif;font-weight:700;font-size:28px;color:#2D3748;line-height:1;margin-bottom:16px">Pure Air.<br><span style="color:#A8DDEE">Pure Rest.</span></h2>
-            <img src="{imgs['hero']}" style="width:100%;border-radius:18px;margin-bottom:20px;box-shadow:0 12px 32px rgba(168,221,238,0.25)" alt="Hero">
-            <button style="background:#A8DDEE;color:#fff;border:none;border-radius:100px;padding:14px;font-family:'Sora',sans-serif;font-weight:700;font-size:12px;cursor:pointer;width:100%;letter-spacing:1px">SHOP NOW</button>
-          </div>
-          <!-- Mobile Product -->
-          <div style="padding:20px">
-            <div style="background:#fff;border-radius:18px;padding:18px;border:1px solid #EAF7FC;text-align:center">
-              <div style="background:#EAF7FC;border-radius:12px;padding:20px;margin-bottom:12px">
-                <img src="{imgs['product_front']}" style="height:80px;object-fit:contain" alt="Product">
-              </div>
-              <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:13px;color:#2D3748">Original Cervical</div>
-              <div style="font-size:10px;color:#A8DDEE;margin:4px 0">⭐ 4.9 · 2,847 reviews</div>
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
-                <span style="font-family:'Sora',sans-serif;font-weight:700;font-size:16px;color:#2D3748">$89</span>
-                <button style="background:#A8DDEE;color:#fff;border:none;border-radius:100px;padding:8px 16px;font-size:10px;font-weight:700;font-family:'Sora';cursor:pointer">ADD TO CART</button>
-              </div>
+        <div class="mob-outer">
+            <div class="mob-screen" style="background:#F8FAFB">
+                <div class="px-8 py-5 flex justify-between items-center bg-white border-b border-slate-50"><span>☰</span><img src="logo.png" class="h-4"><span>🛒</span></div>
+                <div class="p-8 text-center" style="background:var(--mist)">
+                    <h3 style="font-family:'Pacaembu'; font-size:36px; font-weight:700; line-height:1; margin-bottom:15px">Pure Air.</h3>
+                    <img src="hero.jpg" class="rounded-[24px] shadow-lg mb-8">
+                    <div style="background:#A8DDEE; color:#fff; padding:14px; border-radius:100px; font-weight:700; font-size:12px;">SHOP COLLECTION</div>
+                </div>
             </div>
-          </div>
-          <!-- Mobile Stats -->
-          <div style="background:#EAF7FC;margin:0 20px 20px;border-radius:16px;padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:center">
-            <div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:20px;color:#A8DDEE">98%</div><div style="font-size:9px;color:#8FA3B0;text-transform:uppercase;letter-spacing:1px">Pain Relief</div></div>
-            <div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:20px;color:#A8DDEE">4.9★</div><div style="font-size:9px;color:#8FA3B0;text-transform:uppercase;letter-spacing:1px">Rating</div></div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!--  CONCEPT 02 — WONDER · SOFT TECH                          -->
-<!-- ═══════════════════════════════════════════════════════════ -->
-<section id="c2">
-  <div class="concept-intro">
-    <span class="concept-label" style="color:#1F8FA3">Concept 02 · Wonder Theme · Soft Technology</span>
-    <span class="concept-title" style="font-family:'Sora',sans-serif;font-weight:700;color:#F2F7F8">Sleep<br><span style="color:#1F8FA3">Engineered.</span></span>
-  </div>
+<!-- ╔══════════════════════════════╗ -->
+<!-- ║ CONCEPT 02: SOFT TECH (WONDER) ║ -->
+<!-- ╚══════════════════════════════╝ -->
+<section id="c2" style="background:#20242A; color:#F2F7F8;">
+    <div class="text-center py-40">
+        <span style="color:#1F8FA3; font-size:10px; font-weight:900; letter-spacing:5px; text-transform:uppercase;">Direction 02</span>
+        <h1 style="font-family:'Sora'; font-size: clamp(60px, 9vw, 110px); font-weight:700; letter-spacing:-4px; line-height:0.9; margin: 20px 0;">Soft Tech</h1>
+        <p style="color:rgba(242,247,248,0.3); font-size:20px; font-weight:300;">Wonder Template · Premium Sleep-Tech</p>
+    </div>
 
-  <!-- IDENTITY -->
-  <div class="id-section">
-    <!-- Colors -->
-    <div class="id-card">
-      <div class="id-card-title">Color System</div>
-      <div class="swatches">
-        <div class="swatch-item"><div class="swatch" style="background:#20242A;border-color:#2D333B"></div><div class="swatch-label" style="color:#F2F7F8">#20242A<br>Deep Charcoal</div></div>
-        <div class="swatch-item"><div class="swatch" style="background:#1F8FA3"></div><div class="swatch-label" style="color:#F2F7F8">#1F8FA3<br>Bright Teal</div></div>
-        <div class="swatch-item"><div class="swatch" style="background:#A8DDEE"></div><div class="swatch-label" style="color:#F2F7F8">#A8DDEE<br>Vela Blue</div></div>
-        <div class="swatch-item"><div class="swatch" style="background:#D98DB7"></div><div class="swatch-label" style="color:#F2F7F8">#D98DB7<br>Soft Aurora</div></div>
-        <div class="swatch-item"><div class="swatch" style="background:#F2F7F8"></div><div class="swatch-label" style="color:#F2F7F8">#F2F7F8<br>Mist White</div></div>
-      </div>
+    <!-- Identity Panel -->
+    <div class="id-grid">
+        <div class="id-card" style="background:#1A1D23; border-color:rgba(31,143,163,0.2);">
+            <h4>Tech Palette</h4>
+            <div class="swatches">
+                <div class="sw-row"><div class="sw" style="background:#20242A;"></div><div class="sw-lbl" style="color:#fff">#20242A</div></div>
+                <div class="sw-row"><div class="sw" style="background:#1F8FA3;"></div><div class="sw-lbl" style="color:#fff">#1F8FA3</div></div>
+                <div class="sw-row"><div class="sw" style="background:#A8DDEE;"></div><div class="sw-lbl" style="color:#fff">#A8DDEE</div></div>
+                <div class="sw-row"><div class="sw" style="background:#D98DB7;"></div><div class="sw-lbl" style="color:#fff">#D98DB7</div></div>
+            </div>
+        </div>
+        <div class="id-card" style="background:#1A1D23; border-color:rgba(31,143,163,0.2);">
+            <h4>Typography</h4>
+            <div style="font-family:'Sora'; font-weight:700; font-size:32px;">Sora Bold</div>
+            <div style="font-family:'Manrope'; font-size:16px; opacity:0.5; margin-top:8px;">Manrope Regular for technical detail blocks.</div>
+        </div>
+        <div class="id-card" style="background:#1A1D23; border-color:rgba(31,143,163,0.2);">
+            <h4>Interactive UI</h4>
+            <div class="flex flex-col gap-4">
+                <div style="background:#1F8FA3; color:#fff; padding:15px; border-radius:8px; text-align:center; font-weight:700; font-size:12px; font-family:'Sora'">ADD TO CART</div>
+                <div style="border: 1px solid #1F8FA3; color:#1F8FA3; padding:10px; border-radius:8px; text-align:center; font-size:11px; font-weight:700;">SPECS ▾</div>
+            </div>
+        </div>
     </div>
-    <!-- Typography -->
-    <div class="id-card">
-      <div class="id-card-title">Typography · Sora + Manrope</div>
-      <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:28px;color:#F2F7F8;line-height:1.1;margin-bottom:10px">Sora Bold<br><span style="color:#1F8FA3">Headings</span></div>
-      <div style="font-family:'Manrope',sans-serif;font-weight:400;font-size:14px;color:rgba(242,247,248,0.6);line-height:1.6;margin-bottom:8px">Manrope Regular for body text and product details. Approachable yet precise.</div>
-      <div style="font-family:'Sora',sans-serif;font-weight:300;font-size:11px;color:#1F8FA3;letter-spacing:4px;text-transform:uppercase">SORA LIGHT · LABELS</div>
-    </div>
-    <!-- Mood -->
-    <div class="id-card" style="background:linear-gradient(135deg,#20242A,#1A1D23)">
-      <div class="id-card-title">Brand Mood</div>
-      <div style="display:flex;flex-wrap:wrap;gap:8px">
-        <span style="background:rgba(31,143,163,0.15);border:1px solid rgba(31,143,163,0.4);color:#1F8FA3;padding:6px 14px;border-radius:8px;font-size:10px;font-weight:700;font-family:'Sora'">PREMIUM</span>
-        <span style="background:rgba(31,143,163,0.15);border:1px solid rgba(31,143,163,0.4);color:#1F8FA3;padding:6px 14px;border-radius:8px;font-size:10px;font-weight:700;font-family:'Sora'">TECH</span>
-        <span style="background:rgba(217,141,183,0.15);border:1px solid rgba(217,141,183,0.3);color:#D98DB7;padding:6px 14px;border-radius:8px;font-size:10px;font-weight:700;font-family:'Sora'">IMMERSIVE</span>
-        <span style="background:rgba(168,221,238,0.1);border:1px solid rgba(168,221,238,0.3);color:#A8DDEE;padding:6px 14px;border-radius:8px;font-size:10px;font-weight:700;font-family:'Sora'">SLEEP-TECH</span>
-        <span style="background:rgba(31,143,163,0.15);border:1px solid rgba(31,143,163,0.4);color:#1F8FA3;padding:6px 14px;border-radius:8px;font-size:10px;font-weight:700;font-family:'Sora'">CALM</span>
-      </div>
-    </div>
-  </div>
 
-  <!-- UI KIT -->
-  <div class="ui-showcase" style="padding-bottom:40px">
-    <!-- Primary Button -->
-    <div class="ui-card">
-      <div class="id-card-title">Buttons</div>
-      <button style="background:#1F8FA3;color:#fff;border:none;border-radius:8px;padding:14px 28px;font-family:'Sora',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;cursor:pointer;display:block;width:100%;box-shadow:0 4px 20px rgba(31,143,163,0.4)">START TRANSFORMATION</button>
-      <button style="background:rgba(31,143,163,0.1);color:#1F8FA3;border:1px solid rgba(31,143,163,0.4);border-radius:8px;padding:14px 28px;font-family:'Sora',sans-serif;font-weight:700;font-size:13px;cursor:pointer;display:block;width:100%">VIEW SPECS ▾</button>
-      <button style="background:transparent;color:#F2F7F8;border:1px solid rgba(242,247,248,0.15);border-radius:8px;padding:12px 24px;font-family:'Sora',sans-serif;font-weight:400;font-size:12px;cursor:pointer;display:block;width:100%">COMPARE MODELS</button>
-    </div>
-    <!-- Badges -->
-    <div class="ui-card">
-      <div class="id-card-title">Badges & Tags</div>
-      <div style="display:flex;flex-wrap:wrap;gap:8px">
-        <span style="background:#1F8FA3;color:#fff;padding:5px 12px;border-radius:6px;font-size:9px;font-weight:800;font-family:'Sora';letter-spacing:2px">TECH PICK</span>
-        <span style="background:rgba(217,141,183,0.2);border:1px solid rgba(217,141,183,0.4);color:#D98DB7;padding:5px 12px;border-radius:6px;font-size:9px;font-weight:700;font-family:'Sora'">AWARD 2025</span>
-        <span style="background:rgba(168,221,238,0.1);border:1px solid rgba(168,221,238,0.3);color:#A8DDEE;padding:5px 12px;border-radius:6px;font-size:9px;font-weight:700;font-family:'Sora'">COOLING TECH</span>
-      </div>
-      <div style="height:1px;background:rgba(255,255,255,0.08);margin:4px 0"></div>
-      <div style="font-size:22px;font-family:'Sora',sans-serif;font-weight:700;color:#F2F7F8">$89 <span style="font-size:13px;font-weight:400;color:rgba(242,247,248,0.3);text-decoration:line-through">$119</span></div>
-      <div style="font-size:11px;color:#1F8FA3;font-weight:600;font-family:'Manrope'">⭐ 4.9 · 2,847 reviews</div>
-    </div>
-    <!-- Product Card -->
-    <div class="ui-card" style="padding:0;overflow:hidden;border-radius:20px;border:1px solid rgba(31,143,163,0.15)">
-      <div style="background:linear-gradient(160deg,#1A1D23,#20242A);padding:32px;text-align:center;min-height:180px;display:flex;align-items:center;justify-content:center;position:relative">
-        <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 80%,rgba(31,143,163,0.2),transparent 60%)"></div>
-        <img src="{imgs['product_front']}" style="height:120px;object-fit:contain;filter:drop-shadow(0 0 30px rgba(31,143,163,0.5));position:relative" alt="Product">
-      </div>
-      <div style="padding:20px;background:#20242A">
-        <div style="font-size:9px;font-weight:800;letter-spacing:3px;color:#1F8FA3;font-family:'Sora';margin-bottom:6px">ORIGINAL CERVICAL</div>
-        <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:15px;color:#F2F7F8;margin-bottom:4px">VelaSleep Pro</div>
-        <div style="font-size:12px;color:rgba(242,247,248,0.4);margin-bottom:12px;font-family:'Manrope'">Ergonomic · Cooling Tech</div>
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <span style="font-family:'Sora',sans-serif;font-weight:700;font-size:18px;color:#F2F7F8">$89</span>
-          <button style="background:#1F8FA3;color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:11px;font-weight:700;font-family:'Sora';cursor:pointer">ADD TO CART</button>
-        </div>
-      </div>
-    </div>
-    <!-- Nav preview -->
-    <div class="ui-card" style="padding:0;overflow:hidden;border-radius:20px;border:1px solid rgba(31,143,163,0.15)">
-      <div style="background:rgba(26,29,35,0.9);backdrop-filter:blur(20px);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.05)">
-        <img src="{imgs['logo']}" style="height:18px;filter:invert(1)" alt="VelaSleep">
-        <div style="display:flex;gap:16px">
-          <span style="font-size:9px;font-weight:700;color:rgba(242,247,248,0.4);letter-spacing:2px;font-family:'Sora'">TECH</span>
-          <span style="font-size:9px;font-weight:700;color:rgba(242,247,248,0.4);letter-spacing:2px;font-family:'Sora'">COMPARE</span>
-        </div>
-        <span style="background:#1F8FA3;color:#fff;padding:7px 14px;border-radius:8px;font-size:10px;font-weight:700;font-family:'Sora'">SHOP</span>
-      </div>
-      <div style="background:#1A1D23;padding:20px;text-align:center">
-        <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:13px;color:#F2F7F8;margin-bottom:6px">Header — Dark Mode</div>
-        <div style="font-size:11px;color:rgba(242,247,248,0.4);font-family:'Manrope'">Frosted glass nav with<br>Teal CTA button</div>
-      </div>
-      <div style="background:#20242A;padding:16px 20px">
-        <div class="id-card-title" style="margin-bottom:12px">Search Input</div>
-        <div style="border:1.5px solid rgba(31,143,163,0.4);border-radius:8px;padding:10px 18px;display:flex;align-items:center;gap:8px;background:rgba(31,143,163,0.05)">
-          <span style="color:#1F8FA3;font-size:14px">⌕</span>
-          <span style="font-size:12px;color:rgba(242,247,248,0.3);font-family:'Sora'">Search technology...</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- BROWSER + MOBILE PREVIEW -->
-  <div class="frames-wrap">
-    <div class="frames-section-label">Wonder Theme Preview · Desktop + Mobile</div>
-    <div class="desktop-mobile-layout">
-      <!-- DESKTOP -->
-      <div class="desktop-frame">
-        <div class="desktop-chrome">
-          <div class="chrome-dot" style="background:#444C5C"></div>
-          <div class="chrome-dot" style="background:#444C5C"></div>
-          <div class="chrome-dot" style="background:#444C5C"></div>
-          <div class="chrome-url">velasleep.com</div>
-        </div>
-        <!-- DARK PAGE CONTENT -->
-        <div style="background:#20242A">
-          <!-- NAV -->
-          <div style="background:rgba(26,29,35,0.9);border-bottom:1px solid rgba(255,255,255,0.05);padding:18px 40px;display:flex;justify-content:space-between;align-items:center">
-            <img src="{imgs['logo']}" style="height:22px;filter:invert(1)" alt="VelaSleep">
-            <div style="display:flex;gap:32px">
-              <span style="font-size:10px;font-weight:700;color:rgba(242,247,248,0.4);letter-spacing:3px;font-family:'Sora'">TECHNOLOGY</span>
-              <span style="font-size:10px;font-weight:700;color:rgba(242,247,248,0.4);letter-spacing:3px;font-family:'Sora'">COMPARE</span>
-              <span style="font-size:10px;font-weight:700;color:rgba(242,247,248,0.4);letter-spacing:3px;font-family:'Sora'">SCIENCE</span>
+    <!-- Web Windows -->
+    <div class="section-tag" style="color:#1F8FA3;">Wonder Preset: Dark Mode & Shoppable Video</div>
+    <div class="device-container">
+        <div class="dk-frame" style="background:#20242A; border-color:rgba(255,255,255,0.05);">
+            <div class="dk-chrome" style="background:#111318; border-bottom:1px solid rgba(255,255,255,0.05);">
+                <div class="chrome-dot bg-slate-700"></div><div class="chrome-dot bg-slate-700"></div><div class="chrome-dot bg-slate-700"></div><div class="url-bar" style="background:#20242A; border-color:#2D333B; color:#444">velasleep.com (Wonder Theme)</div>
             </div>
-            <button style="background:#1F8FA3;color:#fff;border:none;border-radius:8px;padding:10px 24px;font-size:11px;font-weight:700;font-family:'Sora';cursor:pointer">SHOP NOW</button>
-          </div>
-          <!-- HERO -->
-          <div style="padding:60px 40px;text-align:center;position:relative">
-            <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(31,143,163,0.15),transparent 70%)"></div>
-            <div style="position:relative">
-              <span style="font-size:9px;font-weight:800;letter-spacing:6px;color:#D98DB7;font-family:'Sora';display:block;margin-bottom:20px">SOFT INTELLIGENCE</span>
-              <h1 style="font-family:'Sora',sans-serif;font-weight:700;font-size:52px;line-height:0.95;color:#F2F7F8;margin-bottom:40px">Sleep<br><span style="color:#1F8FA3">Engineered.</span></h1>
-              <img src="{imgs['product_front']}" style="max-width:280px;width:100%;filter:drop-shadow(0 0 40px rgba(31,143,163,0.5));margin-bottom:32px" alt="Product">
-              <br>
-              <button style="background:#1F8FA3;color:#fff;border:none;border-radius:8px;padding:16px 40px;font-size:13px;font-weight:700;font-family:'Sora';cursor:pointer;box-shadow:0 0 40px rgba(31,143,163,0.3)">START YOUR TRANSFORMATION</button>
-            </div>
-          </div>
-          <!-- STATS -->
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid rgba(255,255,255,0.05)">
-            <div style="padding:32px;text-align:center;border-right:1px solid rgba(255,255,255,0.05)">
-              <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:32px;color:#1F8FA3;margin-bottom:6px">98%</div>
-              <div style="font-size:9px;letter-spacing:3px;color:rgba(242,247,248,0.3);text-transform:uppercase">Neck Relief</div>
-            </div>
-            <div style="padding:32px;text-align:center;border-right:1px solid rgba(255,255,255,0.05)">
-              <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:32px;color:#1F8FA3;margin-bottom:6px">−2°C</div>
-              <div style="font-size:9px;letter-spacing:3px;color:rgba(242,247,248,0.3);text-transform:uppercase">Cooling Tech</div>
-            </div>
-            <div style="padding:32px;text-align:center">
-              <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:32px;color:#1F8FA3;margin-bottom:6px">100N</div>
-              <div style="font-size:9px;letter-spacing:3px;color:rgba(242,247,248,0.3);text-transform:uppercase">Night Trial</div>
-            </div>
-          </div>
-          <!-- PRODUCT GRID -->
-          <div style="padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
-            <div style="background:#1A1D23;border:1px solid rgba(31,143,163,0.15);border-radius:16px;overflow:hidden">
-              <div style="padding:28px;text-align:center;background:linear-gradient(135deg,#1A1D23,#20242A);position:relative">
-                <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 100%,rgba(31,143,163,0.15),transparent)"></div>
-                <img src="{imgs['product_front']}" style="height:90px;object-fit:contain;filter:drop-shadow(0 0 20px rgba(31,143,163,0.4));position:relative" alt="Product">
-              </div>
-              <div style="padding:16px">
-                <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:13px;color:#F2F7F8;margin-bottom:4px">Original Cervical</div>
-                <div style="font-size:11px;color:rgba(242,247,248,0.3);margin-bottom:12px">Neck Support · Cooling</div>
-                <div style="display:flex;justify-content:space-between;align-items:center">
-                  <span style="font-family:'Sora',sans-serif;font-weight:700;color:#F2F7F8">$89</span>
-                  <button style="background:#1F8FA3;color:#fff;border:none;border-radius:6px;padding:7px 14px;font-size:10px;font-weight:700;cursor:pointer">ADD</button>
+            <div style="background:#20242A;">
+                <nav class="wonder-glass flex justify-between items-center px-12 py-6 sticky top-0 z-50">
+                    <img src="logo.png" class="h-6 invert">
+                    <div class="flex gap-12 text-[10px] font-bold uppercase tracking-widest text-slate-500" style="font-family:'Sora'"><a>Technology</a><a>Specs</a><a>Science</a></div>
+                    <div style="background:#1F8FA3; color:#fff; padding:10px 30px; border-radius:8px; font-weight:700; font-size:11px;">SHOP</div>
+                </nav>
+                <div class="p-24 flex flex-col items-center text-center relative">
+                    <div class="absolute inset-0 bg-gradient-to-b from-[#1F8FA3]/15 to-transparent"></div>
+                    <span class="text-[#D98DB7] text-[10px] font-bold tracking-[8px] mb-6 uppercase" style="font-family:'Sora'">Soft Intelligence</span>
+                    <h2 style="font-family:'Sora'; font-size: 72px; font-weight: 700; line-height: 0.9; margin-bottom: 40px;">Sleep <span style="color:#1F8FA3">Engineered.</span></h2>
+                    <img src="product_front.png" class="max-w-md drop-shadow-[0_0_50px_rgba(31,143,163,0.4)]">
                 </div>
-              </div>
             </div>
-            <div style="background:#1A1D23;border:1px solid rgba(31,143,163,0.15);border-radius:16px;overflow:hidden">
-              <div style="padding:28px;text-align:center;background:linear-gradient(135deg,#1A1D23,#20242A);position:relative">
-                <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 100%,rgba(31,143,163,0.15),transparent)"></div>
-                <img src="{imgs['product_angle']}" style="height:90px;object-fit:contain;filter:drop-shadow(0 0 20px rgba(31,143,163,0.4));position:relative" alt="Product Angle">
-              </div>
-              <div style="padding:16px">
-                <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:13px;color:#F2F7F8;margin-bottom:4px">Butterfly Wings</div>
-                <div style="font-size:11px;color:rgba(242,247,248,0.3);margin-bottom:12px">All Positions · Premium</div>
-                <div style="display:flex;justify-content:space-between;align-items:center">
-                  <span style="font-family:'Sora',sans-serif;font-weight:700;color:#F2F7F8">$109</span>
-                  <button style="background:#1F8FA3;color:#fff;border:none;border-radius:6px;padding:7px 14px;font-size:10px;font-weight:700;cursor:pointer">ADD</button>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-
-      <!-- MOBILE C2 -->
-      <div class="mobile-outer">
-        <div class="mobile-inner">
-          <div style="background:#1A1D23;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.05);position:sticky;top:0;z-index:10">
-            <span style="font-size:18px;color:rgba(242,247,248,0.3)">☰</span>
-            <img src="{imgs['logo']}" style="height:18px;filter:invert(1)" alt="VelaSleep">
-            <span style="font-size:16px;color:#1F8FA3">⊕</span>
-          </div>
-          <div style="background:linear-gradient(180deg,#1A1D23,#20242A);padding:32px 20px;text-align:center;position:relative">
-            <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 100%,rgba(31,143,163,0.2),transparent)"></div>
-            <span style="font-size:8px;font-weight:800;letter-spacing:4px;color:#D98DB7;font-family:'Sora';display:block;margin-bottom:12px;position:relative">SOFT INTELLIGENCE</span>
-            <h2 style="font-family:'Sora',sans-serif;font-weight:700;font-size:26px;color:#F2F7F8;line-height:1;margin-bottom:16px;position:relative">Innovation<br><span style="color:#1F8FA3">for rest.</span></h2>
-            <img src="{imgs['product_front']}" style="width:70%;filter:drop-shadow(0 0 24px rgba(31,143,163,0.5));margin-bottom:20px;position:relative" alt="Product">
-            <button style="background:#1F8FA3;color:#fff;border:none;border-radius:8px;padding:14px;font-family:'Sora',sans-serif;font-weight:700;font-size:12px;cursor:pointer;width:100%;position:relative">SHOP TECHNOLOGY</button>
-          </div>
-          <div style="padding:20px">
-            <div style="background:#1A1D23;border:1px solid rgba(31,143,163,0.15);border-radius:16px;overflow:hidden;margin-bottom:16px">
-              <div style="padding:20px;text-align:center">
-                <img src="{imgs['product_angle']}" style="height:70px;object-fit:contain;filter:drop-shadow(0 0 16px rgba(31,143,163,0.4))" alt="Product">
-              </div>
-              <div style="padding:14px;border-top:1px solid rgba(255,255,255,0.05)">
-                <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:13px;color:#F2F7F8">Butterfly Wings</div>
-                <div style="font-size:10px;color:rgba(242,247,248,0.3);margin-bottom:10px;font-family:'Manrope'">All sleep positions</div>
-                <div style="display:flex;justify-content:space-between">
-                  <span style="font-family:'Sora',sans-serif;font-weight:700;color:#F2F7F8">$109</span>
-                  <button style="background:#1F8FA3;color:#fff;border:none;border-radius:6px;padding:7px 14px;font-size:10px;font-weight:700;cursor:pointer">ADD</button>
+        <div class="mob-outer" style="background:#111318; border-color:rgba(255,255,255,0.05);">
+            <div class="mob-screen" style="background:#20242A">
+                <div class="px-8 py-6 flex justify-between items-center bg-[#1A1D23] border-b border-white/5"><span>☰</span><img src="logo.png" class="h-4 invert"><span>🛒</span></div>
+                <div class="p-8 text-center">
+                    <h3 style="font-family:'Sora'; font-size:26px; font-weight:700; margin-bottom:15px">Innovating rest.</h3>
+                    <div class="bg-[#1A1D23] rounded-2xl p-10 border border-white/5 mb-8"><img src="product-angle.png" class="h-32 mx-auto drop-shadow-2xl"></div>
+                    <div style="background:#1F8FA3; color:#fff; width:100%; padding:15px; border-radius:8px; font-weight:700; font-family:'Sora'">SHOP NOW</div>
                 </div>
-              </div>
             </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-              <div style="background:#1A1D23;border-radius:12px;padding:16px;text-align:center;border:1px solid rgba(31,143,163,0.1)">
-                <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:20px;color:#1F8FA3">98%</div>
-                <div style="font-size:9px;color:rgba(242,247,248,0.3);text-transform:uppercase;letter-spacing:1px">Relief</div>
-              </div>
-              <div style="background:#1A1D23;border-radius:12px;padding:16px;text-align:center;border:1px solid rgba(31,143,163,0.1)">
-                <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:20px;color:#1F8FA3">4.9★</div>
-                <div style="font-size:9px;color:rgba(242,247,248,0.3);text-transform:uppercase;letter-spacing:1px">Rating</div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!--  CONCEPT 03 — BULLET · SLEEP SANCTUARY                    -->
-<!-- ═══════════════════════════════════════════════════════════ -->
-<section id="c3">
-  <div class="concept-intro">
-    <span class="concept-label" style="color:#B9A9CC">Concept 03 · Bullet Theme · Sleep Sanctuary</span>
-    <span class="concept-title" style="font-family:'Lora',serif;font-style:italic;font-weight:400;color:#47434F">A softer way<br><span style="color:#B9A9CC">to wake.</span></span>
-  </div>
+<!-- ╔══════════════════════════════╗ -->
+<!-- ║ CONCEPT 03: SANCTUARY (BULLET) ║ -->
+<!-- ╚══════════════════════════════╝ -->
+<section id="c3" style="background:#F7F3EF; color:#47434F;">
+    <div class="text-center py-40">
+        <span style="color:#B9A9CC; font-size:10px; font-weight:900; letter-spacing:5px; text-transform:uppercase;">Direction 03</span>
+        <h1 style="font-family:'Lora'; font-size: clamp(60px, 9vw, 110px); font-weight:400; font-style:italic; line-height:0.9; margin: 20px 0;">Sleep Sanctuary</h1>
+        <p style="color:#B9A9CC; font-size:20px; font-weight:300;">Bullet Template · Editorial Wellness Aesthetic</p>
+    </div>
 
-  <!-- IDENTITY -->
-  <div class="id-section">
-    <!-- Colors -->
-    <div class="id-card">
-      <div class="id-card-title">Color System</div>
-      <div class="swatches">
-        <div class="swatch-item"><div class="swatch" style="background:#F7F3EF;border-color:#D6D0D8"></div><div class="swatch-label">#F7F3EF<br>Moon White</div></div>
-        <div class="swatch-item"><div class="swatch" style="background:#D6D0D8"></div><div class="swatch-label">#D6D0D8<br>Pearl Gray</div></div>
-        <div class="swatch-item"><div class="swatch" style="background:#B9A9CC"></div><div class="swatch-label">#B9A9CC<br>Lavender Mist</div></div>
-        <div class="swatch-item"><div class="swatch" style="background:#8FA3B8"></div><div class="swatch-label">#8FA3B8<br>Dusky Blue</div></div>
-        <div class="swatch-item"><div class="swatch" style="background:#47434F"></div><div class="swatch-label">#47434F<br>Moon Graphite</div></div>
-      </div>
+    <!-- Identity Panel -->
+    <div class="id-grid">
+        <div class="id-card" style="background:#fff; border-color:#D6D0D8;">
+            <h4>Warm Palette</h4>
+            <div class="swatches">
+                <div class="sw-row"><div class="sw" style="background:#F7F3EF;"></div><div class="sw-lbl">#F7F3EF</div></div>
+                <div class="sw-row"><div class="sw" style="background:#D6D0D8;"></div><div class="sw-lbl">#D6D0D8</div></div>
+                <div class="sw-row"><div class="sw" style="background:#B9A9CC;"></div><div class="sw-lbl">#B9A9CC</div></div>
+                <div class="sw-row"><div class="sw" style="background:#47434F;"></div><div class="sw-lbl">#47434F</div></div>
+            </div>
+        </div>
+        <div class="id-card" style="background:#fff; border-color:#D6D0D8;">
+            <h4>Typography</h4>
+            <div style="font-family:'Lora'; font-weight:400; font-style:italic; font-size:32px;">Lora Italic</div>
+            <div style="font-family:'Manrope'; font-size:16px; opacity:0.5; margin-top:8px;">Editorial elegance for quiet brand moments.</div>
+        </div>
+        <div class="id-card" style="background:#fff; border-color:#D6D0D8;">
+            <h4>Editorial UI</h4>
+            <div class="flex flex-col gap-4">
+                <div style="background:#47434F; color:#fff; padding:15px; border-radius:2px; text-align:center; font-weight:400; font-size:14px; font-family:'Lora'">Enter Sanctuary</div>
+                <div style="border-bottom: 1px solid #47434F; width: fit-content; margin: 0 auto; font-size:11px; padding-bottom:2px; letter-spacing:2px; font-weight:700;">VIEW RITUALS</div>
+            </div>
+        </div>
     </div>
-    <!-- Typography -->
-    <div class="id-card">
-      <div class="id-card-title">Typography · Lora + Manrope</div>
-      <div style="font-family:'Lora',serif;font-style:italic;font-weight:400;font-size:28px;color:#47434F;line-height:1.2;margin-bottom:10px">Lora Italic<br>for Headings</div>
-      <div style="font-family:'Manrope',sans-serif;font-weight:400;font-size:14px;color:#6A6575;line-height:1.7;margin-bottom:8px">Manrope Regular for body text. Warm, clean, readable — balanced with editorial elegance.</div>
-      <div style="font-family:'Manrope',sans-serif;font-weight:600;font-size:10px;color:#B9A9CC;letter-spacing:4px;text-transform:uppercase">MANROPE MEDIUM · LABELS</div>
-    </div>
-    <!-- Mood -->
-    <div class="id-card" style="background:linear-gradient(135deg,#F7F3EF,#fff)">
-      <div class="id-card-title">Brand Mood</div>
-      <div style="display:flex;flex-wrap:wrap;gap:8px">
-        <span style="background:rgba(185,169,204,0.15);border:1px solid rgba(185,169,204,0.4);color:#7A6A8A;padding:6px 14px;border-radius:2px;font-size:10px;font-weight:600;font-family:'Manrope';letter-spacing:2px">QUIET</span>
-        <span style="background:rgba(185,169,204,0.15);border:1px solid rgba(185,169,204,0.4);color:#7A6A8A;padding:6px 14px;border-radius:2px;font-size:10px;font-weight:600;font-family:'Manrope';letter-spacing:2px">INTIMATE</span>
-        <span style="background:rgba(143,163,184,0.1);border:1px solid rgba(143,163,184,0.3);color:#5A7A8A;padding:6px 14px;border-radius:2px;font-size:10px;font-weight:600;font-family:'Manrope';letter-spacing:2px">MOONLIT</span>
-        <span style="background:rgba(185,169,204,0.15);border:1px solid rgba(185,169,204,0.4);color:#7A6A8A;padding:6px 14px;border-radius:2px;font-size:10px;font-weight:600;font-family:'Manrope';letter-spacing:2px">RITUAL</span>
-        <span style="background:rgba(214,208,216,0.3);border:1px solid #D6D0D8;color:#6A6575;padding:6px 14px;border-radius:2px;font-size:10px;font-weight:600;font-family:'Manrope';letter-spacing:2px">ELEGANT</span>
-      </div>
-    </div>
-  </div>
 
-  <!-- UI KIT -->
-  <div class="ui-showcase" style="padding-bottom:40px">
-    <!-- Buttons -->
-    <div class="ui-card">
-      <div class="id-card-title">Buttons</div>
-      <button style="background:#47434F;color:#fff;border:none;border-radius:2px;padding:16px 28px;font-family:'Lora',serif;font-weight:400;font-size:14px;cursor:pointer;display:block;width:100%;letter-spacing:1px">Enter Sanctuary</button>
-      <button style="background:#B9A9CC;color:#fff;border:none;border-radius:2px;padding:14px 28px;font-family:'Lora',serif;font-weight:400;font-size:14px;cursor:pointer;display:block;width:100%">Add to Sanctuary</button>
-      <div style="border-bottom:1px solid #47434F;width:fit-content;padding-bottom:3px;font-family:'Manrope',sans-serif;font-size:11px;font-weight:600;letter-spacing:3px;color:#47434F;text-transform:uppercase;cursor:pointer">VIEW THE COLLECTION</div>
-    </div>
-    <!-- Badges -->
-    <div class="ui-card">
-      <div class="id-card-title">Badges & Tags</div>
-      <div style="display:flex;flex-wrap:wrap;gap:8px">
-        <span style="background:rgba(185,169,204,0.15);border:1px solid #B9A9CC;color:#7A6A8A;padding:5px 12px;border-radius:0px;font-size:10px;font-weight:600;font-family:'Manrope';letter-spacing:2px">SANCTUARY</span>
-        <span style="background:rgba(214,208,216,0.3);border:1px solid #D6D0D8;color:#6A6575;padding:5px 12px;border-radius:0px;font-size:10px;font-weight:600;font-family:'Manrope';letter-spacing:2px">ECO-PACK</span>
-        <span style="background:rgba(143,163,184,0.1);border:1px solid rgba(143,163,184,0.3);color:#5A7A8A;padding:5px 12px;border-radius:0px;font-size:10px;font-weight:600;font-family:'Manrope';letter-spacing:2px">100 NIGHTS</span>
-      </div>
-      <div style="height:1px;background:#D6D0D8;margin:4px 0"></div>
-      <div style="font-size:22px;font-family:'Lora',serif;font-weight:400;color:#47434F">$89 <span style="font-size:14px;font-weight:400;color:#B9A9CC;text-decoration:line-through">$119</span></div>
-      <div style="font-size:11px;color:#8FA3B8;font-weight:600;font-family:'Manrope'">⭐ 4.9 · 2,847 reviews</div>
-    </div>
-    <!-- Product Card -->
-    <div class="ui-card" style="padding:0;overflow:hidden;border-radius:4px;border:1px solid rgba(185,169,204,0.25)">
-      <div style="background:#D6D0D8;min-height:180px;display:flex;align-items:center;justify-content:center;overflow:hidden">
-        <img src="{imgs['lifestyle']}" style="width:100%;height:180px;object-fit:cover;opacity:0.85;filter:grayscale(10%)" alt="Lifestyle">
-      </div>
-      <div style="padding:20px;background:#fff">
-        <div style="font-family:'Manrope',sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;color:#B9A9CC;text-transform:uppercase;margin-bottom:8px">ORIGINAL CERVICAL</div>
-        <div style="font-family:'Lora',serif;font-style:italic;font-weight:400;font-size:18px;color:#47434F;margin-bottom:6px">The Sanctuary Pillow</div>
-        <div style="font-size:12px;color:#8FA3B8;margin-bottom:16px;font-family:'Manrope'">Ergonomic · Memory Foam</div>
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <span style="font-family:'Lora',serif;font-size:18px;color:#47434F">$89</span>
-          <button style="background:#B9A9CC;color:#fff;border:none;border-radius:2px;padding:10px 18px;font-family:'Lora',serif;font-size:12px;cursor:pointer">Add to Sanctuary</button>
-        </div>
-      </div>
-    </div>
-    <!-- Nav preview -->
-    <div class="ui-card" style="padding:0;overflow:hidden;border-radius:4px;border:1px solid rgba(185,169,204,0.25)">
-      <div style="background:#fff;padding:20px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #D6D0D8">
-        <img src="{imgs['logo']}" style="height:18px;opacity:0.7" alt="VelaSleep">
-        <div style="display:flex;gap:16px">
-          <span style="font-size:9px;font-weight:600;color:#A09AB0;letter-spacing:3px;font-family:'Manrope'">COLLECTION</span>
-          <span style="font-size:9px;font-weight:600;color:#A09AB0;letter-spacing:3px;font-family:'Manrope'">RITUAL</span>
-        </div>
-        <div style="font-size:16px;color:#B9A9CC">⊕</div>
-      </div>
-      <div style="background:#F7F3EF;padding:20px;text-align:center">
-        <div style="font-family:'Lora',serif;font-style:italic;font-size:13px;color:#47434F;margin-bottom:6px">Header — Warm Light</div>
-        <div style="font-size:11px;color:#8FA3B8;font-family:'Manrope'">Editorial nav with<br>Lavender Mist accents</div>
-      </div>
-      <div style="background:#fff;padding:16px 20px">
-        <div class="id-card-title" style="margin-bottom:12px">Search Input</div>
-        <div style="border:none;border-bottom:1.5px solid #B9A9CC;padding:10px 0;display:flex;align-items:center;gap:8px">
-          <span style="color:#B9A9CC;font-size:14px">⌕</span>
-          <span style="font-size:12px;color:#C0B8C8;font-family:'Manrope'">Search our sanctuary...</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- BROWSER + MOBILE PREVIEW -->
-  <div class="frames-wrap">
-    <div class="frames-section-label">Bullet Theme Preview · Desktop + Mobile</div>
-    <div class="desktop-mobile-layout">
-      <!-- DESKTOP -->
-      <div class="desktop-frame">
-        <div class="desktop-chrome">
-          <div class="chrome-dot" style="background:#CCC6CC"></div>
-          <div class="chrome-dot" style="background:#CCC6CC"></div>
-          <div class="chrome-dot" style="background:#CCC6CC"></div>
-          <div class="chrome-url">velasleep.com/sanctuary</div>
-        </div>
-        <!-- EDITORIAL PAGE CONTENT -->
-        <div style="background:#F7F3EF">
-          <!-- NAV -->
-          <div style="border-bottom:1px solid #D6D0D8;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;background:#fff">
-            <img src="{imgs['logo']}" style="height:22px;opacity:0.75" alt="VelaSleep">
-            <div style="display:flex;gap:40px">
-              <span style="font-size:9px;font-weight:600;color:#A09AB0;letter-spacing:4px;font-family:'Manrope'">COLLECTION</span>
-              <span style="font-size:9px;font-weight:600;color:#A09AB0;letter-spacing:4px;font-family:'Manrope'">PHILOSOPHY</span>
-              <span style="font-size:9px;font-weight:600;color:#A09AB0;letter-spacing:4px;font-family:'Manrope'">RITUALS</span>
-            </div>
-            <div style="display:flex;gap:16px;font-size:16px;color:#B9A9CC">⌕ ⊕</div>
-          </div>
-          <!-- SPLIT HERO -->
-          <div style="display:grid;grid-template-columns:1fr 1fr">
-            <div style="padding:60px 40px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid #D6D0D8">
-              <h1 style="font-family:'Lora',serif;font-weight:400;font-size:44px;line-height:1.15;color:#47434F;margin-bottom:24px">A softer<br><span style="font-style:italic;color:#B9A9CC">way to wake.</span></h1>
-              <p style="font-family:'Manrope',sans-serif;font-size:13px;color:#8FA3B8;line-height:1.9;margin-bottom:32px;max-width:300px">Inspired by coastal nights and evening stillness. Designed to be your most intimate rest ritual.</p>
-              <button style="background:#47434F;color:#fff;border:none;border-radius:2px;padding:16px 40px;font-family:'Lora',serif;font-size:14px;cursor:pointer;display:inline-block;width:fit-content">Enter Sanctuary</button>
-            </div>
-            <div style="overflow:hidden;max-height:380px">
-              <img src="{imgs['lifestyle']}" style="width:100%;height:100%;object-fit:cover;opacity:0.85;filter:grayscale(10%)" alt="Lifestyle">
-            </div>
-          </div>
-          <!-- EDITORIAL SECTION -->
-          <div style="padding:60px 40px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;border-top:1px solid #D6D0D8">
-            <img src="{imgs['packaging']}" style="border-radius:4px;box-shadow:0 8px 32px rgba(71,67,79,0.08)" alt="Packaging">
-            <div>
-              <div style="font-family:'Manrope',sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;color:#B9A9CC;text-transform:uppercase;margin-bottom:16px">THE RITUAL</div>
-              <h2 style="font-family:'Lora',serif;font-weight:400;font-size:32px;color:#47434F;margin-bottom:16px;line-height:1.3">Unbox Peace.</h2>
-              <p style="font-family:'Manrope',sans-serif;font-size:13px;color:#8FA3B8;line-height:1.9;margin-bottom:24px;font-style:italic">Every pillow arrives in premium eco-neutral packaging designed for a ritual unboxing moment.</p>
-              <div style="border-bottom:1px solid #47434F;width:fit-content;padding-bottom:4px;font-family:'Manrope',sans-serif;font-size:11px;font-weight:600;letter-spacing:3px;color:#47434F;text-transform:uppercase;cursor:pointer">VIEW THE COLLECTION</div>
-            </div>
-          </div>
-          <!-- PRODUCT GRID -->
-          <div style="padding:40px;background:#fff;border-top:1px solid #D6D0D8;display:grid;grid-template-columns:1fr 1fr;gap:32px">
-            <div>
-              <div style="background:#F7F3EF;border:1px solid #D6D0D8;padding:32px;text-align:center;margin-bottom:16px">
-                <img src="{imgs['product_front']}" style="height:100px;object-fit:contain;opacity:0.9" alt="Product">
-              </div>
-              <div style="font-family:'Manrope',sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;color:#B9A9CC;text-transform:uppercase;margin-bottom:6px">ORIGINAL CERVICAL</div>
-              <div style="font-family:'Lora',serif;font-style:italic;font-size:18px;color:#47434F;margin-bottom:4px">The Sanctuary Pillow</div>
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
-                <span style="font-family:'Lora',serif;font-size:16px;color:#47434F">$89</span>
-                <button style="background:#B9A9CC;color:#fff;border:none;border-radius:2px;padding:10px 20px;font-family:'Lora',serif;font-size:12px;cursor:pointer">Add to Sanctuary</button>
-              </div>
-            </div>
-            <div>
-              <div style="background:#F7F3EF;border:1px solid #D6D0D8;padding:32px;text-align:center;margin-bottom:16px">
-                <img src="{imgs['product_angle']}" style="height:100px;object-fit:contain;opacity:0.9" alt="Product">
-              </div>
-              <div style="font-family:'Manrope',sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;color:#B9A9CC;text-transform:uppercase;margin-bottom:6px">BUTTERFLY WINGS</div>
-              <div style="font-family:'Lora',serif;font-style:italic;font-size:18px;color:#47434F;margin-bottom:4px">The Evening Wing</div>
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
-                <span style="font-family:'Lora',serif;font-size:16px;color:#47434F">$109</span>
-                <button style="background:#B9A9CC;color:#fff;border:none;border-radius:2px;padding:10px 20px;font-family:'Lora',serif;font-size:12px;cursor:pointer">Add to Sanctuary</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- MOBILE C3 -->
-      <div class="mobile-outer">
-        <div class="mobile-inner">
-          <div style="background:#fff;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #D6D0D8;position:sticky;top:0;z-index:10">
-            <span style="font-size:16px;color:#B9A9CC">☰</span>
-            <img src="{imgs['logo']}" style="height:16px;opacity:0.65" alt="VelaSleep">
-            <span style="font-size:16px;color:#B9A9CC">⊕</span>
-          </div>
-          <div style="padding:32px 20px;text-align:center;background:#F7F3EF">
-            <div style="font-family:'Manrope',sans-serif;font-size:8px;font-weight:700;letter-spacing:4px;color:#B9A9CC;text-transform:uppercase;margin-bottom:14px">SLEEP SANCTUARY</div>
-            <h2 style="font-family:'Lora',serif;font-style:italic;font-weight:400;font-size:28px;color:#47434F;line-height:1.2;margin-bottom:16px">Intimate<br><span style="color:#B9A9CC">Wellness.</span></h2>
-            <img src="{imgs['lifestyle']}" style="width:100%;border-radius:4px;margin-bottom:20px;opacity:0.85;filter:grayscale(10%)" alt="Lifestyle">
-            <button style="background:#B9A9CC;color:#fff;border:none;border-radius:2px;padding:16px;font-family:'Lora',serif;font-size:13px;cursor:pointer;width:100%">Shop Sanctuary</button>
-          </div>
-          <div style="padding:20px">
-            <div style="background:#fff;border:1px solid #D6D0D8;border-radius:2px;overflow:hidden;margin-bottom:16px">
-              <div style="padding:24px;text-align:center;border-bottom:1px solid #D6D0D8;background:#F7F3EF">
-                <img src="{imgs['product_front']}" style="height:80px;object-fit:contain;opacity:0.9" alt="Product">
-              </div>
-              <div style="padding:16px">
-                <div style="font-family:'Manrope',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;color:#B9A9CC;text-transform:uppercase;margin-bottom:4px">ORIGINAL</div>
-                <div style="font-family:'Lora',serif;font-style:italic;font-size:16px;color:#47434F;margin-bottom:10px">The Sanctuary Pillow</div>
-                <div style="display:flex;justify-content:space-between;align-items:center">
-                  <span style="font-family:'Lora',serif;font-size:16px;color:#47434F">$89</span>
-                  <button style="background:#B9A9CC;color:#fff;border:none;border-radius:2px;padding:8px 16px;font-family:'Lora',serif;font-size:11px;cursor:pointer">Add</button>
+    <!-- Web Windows -->
+    <div class="section-tag" style="color:#B9A9CC;">Bullet Preset: Large Typo & Split Grids</div>
+    <div class="device-container">
+        <div class="dk-frame" style="background:#F7F3EF; border-color:#D6D0D8;">
+            <div class="dk-chrome" style="background:#EDE8E3;"><div class="chrome-dot bg-slate-300"></div><div class="chrome-dot bg-slate-300"></div><div class="chrome-dot bg-slate-300"></div><div class="url-bar">velasleep.com/sanctuary</div></div>
+            <div style="background:#F7F3EF;">
+                <nav class="flex justify-between items-center px-12 py-10 border-b border-[#D6D0D8] bg-white">
+                    <img src="logo.png" class="h-6 opacity-80">
+                    <div class="flex gap-16 text-[10px] font-bold uppercase tracking-[4px] text-slate-400"><a>Collection</a><a>Philosophy</a><a>Rituals</a></div>
+                    <div class="flex items-center gap-6">⌕ 🛒</div>
+                </nav>
+                <div class="grid grid-cols-2 min-h-[500px]">
+                    <div class="p-24 border-r border-[#D6D0D8] flex flex-col justify-center">
+                        <h2 style="font-family:'Lora'; font-size: 60px; font-weight: 400; line-height: 1.1; margin-bottom: 30px;">A softer <br><span style="font-style:italic; color:#B9A9CC;">way to wake.</span></h2>
+                        <p class="text-slate-500 mb-12 max-w-xs leading-loose">Designed to be your most intimate evening ritual.</p>
+                        <div style="background:#47434F; color:#fff; display:inline-block; padding:15px 50px; border-radius:2px; font-family:'Lora'">Shop Now</div>
+                    </div>
+                    <div class="bg-[#D6D0D8] overflow-hidden">
+                        <img src="lifestyle-girl.jpg" class="w-full h-full object-cover grayscale-[20%] opacity-90">
+                    </div>
                 </div>
-              </div>
             </div>
-            <div style="background:#F7F3EF;border:1px solid #D6D0D8;border-radius:2px;padding:20px">
-              <img src="{imgs['packaging']}" style="width:100%;border-radius:2px;margin-bottom:12px;opacity:0.9" alt="Packaging">
-              <div style="font-family:'Lora',serif;font-style:italic;font-size:14px;color:#47434F;margin-bottom:6px">Unbox Peace.</div>
-              <div style="font-size:11px;color:#8FA3B8;font-family:'Manrope';font-style:italic">Premium eco-neutral packaging with 100-night trial.</div>
-            </div>
-          </div>
         </div>
-      </div>
+        <div class="mob-outer" style="background:#EDE8E3; border-color:#D6D0D8;">
+            <div class="mob-screen" style="background:#F7F3EF">
+                <div class="px-8 py-10 text-center bg-white border-b border-[#D6D0D8]"><img src="logo.png" class="h-4 mx-auto"></div>
+                <div class="p-10 text-center">
+                    <h3 style="font-family:'Lora'; font-size:36px; font-weight:400; line-height:1.1; margin-bottom:30px">Intimate <br>Rest.</h3>
+                    <img src="lifestyle-girl.jpg" class="shadow-sm mb-10 grayscale-[10%] opacity-90">
+                    <div style="background:#B9A9CC; color:#fff; width:100%; padding:18px; border-radius:2px; font-family:'Lora';">Shop Sanctuary</div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </section>
 
-<footer style="background:#000;text-align:center;padding:60px 40px">
-  <img src="{imgs['logo']}" style="height:16px;opacity:0.12;filter:invert(1)" alt="VelaSleep">
-  <p style="margin-top:24px;font-size:9px;letter-spacing:8px;text-transform:uppercase;color:rgba(255,255,255,0.12);font-family:'Manrope'">VelaSleep Theme Direction Guide &middot; 2026</p>
+<footer class="py-20 bg-black text-center">
+    <img src="logo.png" class="h-4 mx-auto mb-10 invert opacity-20">
+    <p class="text-white/20 text-[9px] uppercase tracking-[10px]">VelaSleep Ultimate Guide · 2026</p>
 </footer>
 
 <script>
-// Active nav state on scroll
-const sections = [
-  {{id:'c1', nav:'nav-c1', cls:'c1-active'}},
-  {{id:'c2', nav:'nav-c2', cls:'c2-active'}},
-  {{id:'c3', nav:'nav-c3', cls:'c3-active'}},
-];
-
-function updateNav() {{
-  const scrollY = window.scrollY + 200;
-  let active = null;
-  sections.forEach(s => {{
-    const el = document.getElementById(s.id);
-    if (el && el.offsetTop <= scrollY) active = s;
-  }});
-  sections.forEach(s => {{
-    const navEl = document.getElementById(s.nav);
-    if (navEl) {{
-      navEl.className = '';
-      if (active && active.nav === s.nav) navEl.className = s.cls;
-    }}
-  }});
-}}
-
-window.addEventListener('scroll', updateNav, {{passive:true}});
-updateNav();
+    // Active nav logic on scroll
+    window.addEventListener('scroll', () => {
+        const sections = ['c1', 'c2', 'c3'];
+        let active = 'c1';
+        sections.forEach(s => {
+            const el = document.getElementById(s);
+            if(window.scrollY >= el.offsetTop - 300) active = s;
+        });
+        
+        document.querySelectorAll('.nav-master a').forEach(a => a.className = '');
+        const activeLink = document.getElementById('link-' + active);
+        if(active === 'c1') activeLink.className = 'active-fresh';
+        if(active === 'c2') activeLink.className = 'active-tech';
+        if(active === 'c3') activeLink.className = 'active-sanctuary';
+    });
 </script>
+
 </body>
-</html>'''
-
-with open('/home/claude/velasleep-guide.html', 'w', encoding='utf-8') as f:
-    f.write(html)
-
-print(f'Written! File size: {len(html.encode())//1024} KB')
-PYEOF
+</html>
