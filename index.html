@@ -2,272 +2,292 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VelaSleep Identity System — Concept 1 Fresh</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>VelaSleep — Concept 01 Fresh Identity & Vetro Preview</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <style>
-        /* ПОДКЛЮЧЕНИЕ ШРИФТА PACAEMBU (локально) */
-        @font-face {
-            font-family: 'Pacaembu';
-            src: url('./fonts/Pacaembu-Bold.ttf') format('truetype');
-            font-weight: 700;
-        }
-        @font-face {
-            font-family: 'Pacaembu';
-            src: url('./fonts/Pacaembu-SemiBold.ttf') format('truetype');
-            font-weight: 600;
-        }
-        @font-face {
-            font-family: 'Pacaembu';
-            src: url('./fonts/Pacaembu-Regular.ttf') format('truetype');
-            font-weight: 400;
-        }
-        @font-face {
-            font-family: 'Pacaembu';
-            src: url('./fonts/Pacaembu-Light.ttf') format('truetype');
-            font-weight: 300;
-        }
+        /* ПОДКЛЮЧЕНИЕ ШРИФТА PACAEMBU */
+        @font-face { font-family: 'Pacaembu'; src: url('./fonts/Pacaembu-Bold.ttf') format('truetype'); font-weight: 700; }
+        @font-face { font-family: 'Pacaembu'; src: url('./fonts/Pacaembu-SemiBold.ttf') format('truetype'); font-weight: 600; }
+        @font-face { font-family: 'Pacaembu'; src: url('./fonts/Pacaembu-Regular.ttf') format('truetype'); font-weight: 400; }
+        @font-face { font-family: 'Pacaembu'; src: url('./fonts/Pacaembu-Light.ttf') format('truetype'); font-weight: 300; }
 
+        *{box-sizing:border-box;margin:0;padding:0}
         :root {
             --cloud: #F8FAFB;
             --mist: #EAF7FC;
             --blue: #A8DDEE;
             --pink: #E6A3C8;
             --gray: #D9E1E6;
-            --dark: #2A3A45;
+            --dark: #2D3748;
         }
 
-        body {
-            font-family: 'Pacaembu', sans-serif !important;
-            margin: 0;
-            padding: 0;
-            background: #f0f4f7;
-            color: var(--dark);
-        }
-
+        body{font-family:'Pacaembu',sans-serif; background:var(--cloud); color:var(--dark); overflow-x:hidden;}
+        
         /* ── COVER ── */
-        .cover {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #F8FAFB 0%, #EAF7FC 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 80px;
-        }
-        .cover-badge {
-            background: white;
-            border: 1px solid var(--gray);
-            border-radius: 100px;
-            padding: 10px 24px;
-            font-size: 11px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--blue);
-            font-weight: 700;
-            margin-bottom: 32px;
-        }
-        .cover h1 {
-            font-size: clamp(60px, 8vw, 110px);
-            font-weight: 700;
-            line-height: 0.9;
-            color: var(--dark);
-            margin-bottom: 24px;
-        }
-        .cover-sub {
-            font-size: 20px;
-            color: #64748b;
-            font-weight: 300;
-            max-width: 600px;
-        }
+        .cover{min-height:100vh; background:linear-gradient(135deg, #F8FAFB 0%, #EAF7FC 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:80px 40px}
+        .cover-badge{background:white; border:1px solid var(--gray); border-radius:100px; padding:8px 24px; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--blue); margin-bottom:32px; font-weight:700;}
+        .cover h1{font-size:clamp(56px,9vw,110px); font-weight:700; line-height:.95; color:var(--dark); margin-bottom:20px}
+        .cover-sub{font-size:18px; color:rgba(45,55,72,.5); font-weight:300; margin-bottom:60px}
+        .cover-stats{display:flex; gap:64px; justify-content:center; flex-wrap:wrap}
+        .stat span{display:block; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:rgba(45,55,72,.3); margin-bottom:6px}
+        .stat strong{font-size:20px; color:var(--blue)}
 
-        /* ── IDENTITY SECTION ── */
-        .id-panel {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-            padding: 60px;
-            max-width: 1440px;
-            margin: 0 auto;
-        }
-        .id-card {
-            background: white;
-            border-radius: 24px;
-            padding: 32px;
-            border: 1px solid var(--gray);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
-        }
-        .id-card h4 {
-            font-size: 10px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--blue);
-            margin-bottom: 24px;
-            font-weight: 700;
-        }
+        /* ── DIRECTION HEADER ── */
+        .dir-header{padding:100px 60px 40px; text-align:center}
+        .dir-num{font-size:11px; letter-spacing:4px; text-transform:uppercase; margin-bottom:12px; color:var(--pink); font-weight:700}
+        .dir-title{font-size:clamp(40px,6vw,72px); font-weight:700; margin-bottom:14px; line-height:1}
+        .dir-desc{font-size:15px; max-width:520px; margin:0 auto 32px; line-height:1.7; opacity:.55}
+        .dir-tags{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:60px}
+        .dir-tag{padding:6px 18px; border-radius:100px; font-size:12px; font-weight:600; background:var(--mist); color:var(--blue)}
 
-        /* ── SWATCHES ── */
-        .swatch-grid { display: flex; gap: 12px; flex-wrap: wrap; }
-        .sw-item { text-align: center; width: 60px; }
-        .sw-box { width: 60px; height: 60px; border-radius: 14px; margin-bottom: 8px; border: 1px solid rgba(0,0,0,0.05); }
-        .sw-hex { font-size: 9px; font-weight: 700; opacity: 0.5; }
+        /* ── IDENTITY PANEL ── */
+        .id-panel{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; padding:0 60px 60px; max-width:1440px; margin:0 auto}
+        .id-card{background:white; border-radius:24px; padding:32px; border:1px solid var(--gray); box-shadow:0 10px 30px rgba(0,0,0,0.02)}
+        .id-card h4{font-size:10px; letter-spacing:2px; text-transform:uppercase; margin-bottom:20px; color:var(--blue); font-weight:700}
+        .swatches{display:flex; gap:12px; flex-wrap:wrap;}
+        .sw-row{display:flex; flex-direction:column; align-items:center; gap:6px}
+        .sw{width:48px; height:48px; border-radius:12px; border:1px solid rgba(0,0,0,0.05)}
+        .sw-lbl{font-size:9px; text-align:center; opacity:.45; font-weight:700}
 
-        /* ── MOCKUP FRAMES ── */
-        .mock-lbl {
-            font-size: 11px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            opacity: 0.4;
-            margin: 60px 0 20px;
-            text-align: center;
-        }
-        .browser-frame {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid var(--gray);
-            box-shadow: 0 40px 100px rgba(0,0,0,0.05);
-            max-width: 1200px;
-            margin: 0 auto 80px;
-        }
-        .browser-chrome {
-            background: #f1f5f9;
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border-bottom: 1px solid var(--gray);
-        }
-        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        /* ── FRAMES (VETRO STYLE) ── */
+        .dk-frame{background:white; border-radius:24px; overflow:hidden; box-shadow:0 50px 100px rgba(0,0,0,0.05); border:1px solid var(--gray); margin-bottom:100px}
+        .dk-chrome{background:#f1f5f9; padding:12px 20px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--gray)}
+        .dot{width:10px; height:10px; border-radius:50%}
+        .urlbar{flex:1; background:white; border-radius:100px; padding:4px 16px; font-size:10px; color:rgba(0,0,0,.2); margin-left:15px; border:1px solid var(--gray)}
 
-        .btn-vela {
-            background: var(--blue);
-            color: white;
-            padding: 14px 24px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 13px;
-            text-align: center;
-        }
+        /* MOBILE FRAME */
+        .mob-outer{background:#fff; border-radius:44px; border:8px solid #f1f5f9; padding:10px; box-shadow:0 40px 80px rgba(0,0,0,.08); width:320px; margin:0 auto}
+        .mob-screen{border-radius:28px; overflow:hidden; border:1px solid var(--gray); height:580px; overflow-y:auto; background:var(--cloud)}
+        ::-webkit-scrollbar { width: 0px; }
+
+        .mock-lbl{font-size:10px; letter-spacing:3px; text-transform:uppercase; opacity:.3; margin:80px 0 24px; text-align:center; font-weight:700}
+        
+        /* UI ELEMENTS */
+        .btn-vela-primary{background:var(--blue); color:white; padding:12px 28px; border-radius:100px; font-weight:700; font-size:13px; text-align:center;}
+        .btn-vela-outline{border:1.5px solid var(--dark); color:var(--dark); padding:11px 28px; border-radius:100px; font-weight:700; font-size:13px; text-align:center;}
     </style>
 </head>
 <body>
 
-<!-- 1. COVER -->
+<!-- 1. COVER PAGE -->
 <div class="cover">
-    <div class="cover-badge">VelaSleep · Shopify Vetro System</div>
-    <h1>Concept 01<br><span style="color:var(--blue)">Cool & Fresh</span></h1>
-    <p class="cover-sub">Identity Guidelines & Interactive Theme Preview</p>
+  <span class="cover-badge">VelaSleep · Shopify Vetro Preset System</span>
+  <h1>Pure<br><span style="color:var(--blue)">Comfort.</span></h1>
+  <p class="cover-sub">Direction 1 · Cool & Fresh · Ergonomic Wellness</p>
+  <div class="cover-stats">
+    <div class="stat"><span>System</span><strong>Concept 01</strong></div>
+    <div class="stat"><span>Palette</span><strong>5 Tones</strong></div>
+    <div class="stat"><span>Font</span><strong>Pacaembu</strong></div>
+    <div class="stat"><span>Layouts</span><strong>Home · Coll · PDP</strong></div>
+  </div>
 </div>
 
-<!-- 2. DESIGN IDENTITY PANEL -->
+<!-- 2. IDENTITY PANEL -->
+<div class="dir-header">
+  <div class="dir-num">Brand Identity</div>
+  <h2 class="dir-title">Vela Guidelines</h2>
+  <p class="dir-desc">Clean, airy, and breathable visuals designed for a soft-wellness customer experience.</p>
+</div>
+
 <div class="id-panel">
-    <!-- Colors -->
-    <div class="id-card">
-        <h4>Color Palette</h4>
-        <div class="swatch-grid">
-            <div class="sw-item"><div class="sw-box" style="background:#F8FAFB"></div><div class="sw-hex">#F8FAFB</div></div>
-            <div class="sw-item"><div class="sw-box" style="background:#EAF7FC"></div><div class="sw-hex">#EAF7FC</div></div>
-            <div class="sw-item"><div class="sw-box" style="background:#A8DDEE"></div><div class="sw-hex">#A8DDEE</div></div>
-            <div class="sw-item"><div class="sw-box" style="background:#D9E1E6"></div><div class="sw-hex">#D9E1E6</div></div>
-            <div class="sw-item"><div class="sw-box" style="background:#E6A3C8"></div><div class="sw-hex">#E6A3C8</div></div>
-        </div>
+  <!-- Colors -->
+  <div class="id-card">
+    <h4>Color System</h4>
+    <div class="swatches">
+      <div class="sw-row"><div class="sw" style="background:#F8FAFB"></div><div class="sw-lbl">#F8FAFB<br>Cloud</div></div>
+      <div class="sw-row"><div class="sw" style="background:#EAF7FC"></div><div class="sw-lbl">#EAF7FC<br>Mist</div></div>
+      <div class="sw-row"><div class="sw" style="background:#A8DDEE"></div><div class="sw-lbl">#A8DDEE<br>Vela Blue</div></div>
+      <div class="sw-row"><div class="sw" style="background:#D9E1E6"></div><div class="sw-lbl">#D9E1E6<br>Fog</div></div>
+      <div class="sw-row"><div class="sw" style="background:#E6A3C8"></div><div class="sw-lbl">#E6A3C8<br>Aurora</div></div>
     </div>
-
-    <!-- Typography -->
-    <div class="id-card">
-        <h4>Typography (Pacaembu)</h4>
-        <div style="font-weight:700; font-size:32px; line-height:1; margin-bottom:10px;">Bold Display</div>
-        <div style="font-weight:400; font-size:16px; opacity:0.6;">Light & Airy Body Text</div>
+  </div>
+  <!-- Typography -->
+  <div class="id-card">
+    <h4>Typography</h4>
+    <div style="margin-bottom:12px">
+      <div style="font-weight:700; font-size:28px; line-height:1.1; color:var(--dark)">Pacaembu Bold</div>
+      <div style="font-size:11px; opacity:.5">Headlines & Hero Statements</div>
     </div>
-
-    <!-- UI Elements -->
-    <div class="id-card">
-        <h4>UI Elements</h4>
-        <div class="flex flex-col gap-3">
-            <div class="btn-vela">Shop Now</div>
-            <div style="border: 1.5px solid var(--dark); padding: 12px; border-radius:50px; text-align:center; font-size:13px; font-weight:600;">Explore Science</div>
-            <div class="flex gap-2">
-                <span style="background:var(--pink); color:white; font-size:10px; padding:4px 12px; border-radius:20px; font-weight:700;">NEW</span>
-                <span style="background:var(--mist); color:var(--blue); font-size:10px; padding:4px 12px; border-radius:20px; font-weight:700;">ECO-FRIENDLY</span>
-            </div>
-        </div>
+    <div>
+      <div style="font-weight:400; font-size:16px; color:var(--dark)">Pacaembu Regular</div>
+      <div style="font-size:11px; opacity:.5">Body Copy & UI Text</div>
     </div>
+  </div>
+  <!-- UI Buttons -->
+  <div class="id-card">
+    <h4>Buttons & Badges</h4>
+    <div class="flex flex-col gap-3">
+      <div class="btn-vela-primary">Shop Now — Primary</div>
+      <div class="btn-vela-outline">Learn More — Outline</div>
+      <div class="flex gap-2">
+        <span style="background:var(--pink); color:white; font-size:9px; padding:4px 10px; border-radius:20px; font-weight:700;">NEW ARRIVAL</span>
+        <span style="background:var(--blue); color:white; font-size:9px; padding:4px 10px; border-radius:20px; font-weight:700;">BESTSELLER</span>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- 3. WEB PREVIEW SECTION -->
-<div class="mock-lbl">Interactive Shopify Theme Preview (Vetro Theme)</div>
-
-<div class="browser-frame">
-    <div class="browser-chrome">
+<!-- 3. WEB PREVIEW: HOMEPAGE -->
+<div class="max-w-[1200px] mx-auto px-10">
+  <div class="mock-lbl">Variation 01 · Homepage Windows (Desktop & Mobile)</div>
+  
+  <div class="grid lg:grid-cols-[1fr_350px] gap-12 items-start">
+    <!-- Desktop Home -->
+    <div class="dk-frame">
+      <div class="dk-chrome">
         <div class="dot bg-red-400"></div><div class="dot bg-yellow-400"></div><div class="dot bg-green-400"></div>
-        <div class="ml-4 bg-white rounded-full px-4 py-1 text-[10px] text-slate-400 w-full max-w-sm">velasleep.com/fresh-direction</div>
-    </div>
-
-    <!-- ACTUAL WEBSITE CONTENT -->
-    <div style="background:var(--cloud); padding:0; position:relative;">
-        <!-- Header -->
-        <div class="flex justify-between items-center px-12 py-6 border-b border-[#D9E1E6]/30 bg-white/50 backdrop-blur-md sticky top-0 z-50">
-            <img src="logo.png" class="h-6">
-            <div class="flex gap-10 text-[11px] font-bold uppercase tracking-widest text-slate-400">
-                <a href="#">Pillows</a><a href="#">Science</a><a href="#">Reviews</a>
-            </div>
-            <div class="btn-vela !py-2.5 !px-8">Shop Now</div>
+        <div class="urlbar">velasleep.com</div>
+      </div>
+      <div style="background:var(--cloud)">
+        <!-- Nav -->
+        <div class="flex justify-between items-center px-10 py-6 border-b border-[#D9E1E6]/30 bg-white/40 backdrop-blur-md">
+          <img src="logo.png" class="h-6">
+          <div class="flex gap-8 text-[11px] font-bold uppercase tracking-widest text-slate-400"><a>Shop</a><a>Science</a><a>Reviews</a></div>
+          <div class="btn-vela-primary !py-2 !px-6 text-[11px]">Get Trial</div>
         </div>
-
         <!-- Hero -->
-        <div class="grid md:grid-cols-2 gap-12 px-12 py-24 items-center" style="background: linear-gradient(180deg, #fff 0%, var(--mist) 100%);">
-            <div>
-                <h2 style="font-size:72px; font-weight:700; line-height:0.95; margin-bottom:30px;">Wake up <br><span style="color:var(--blue)">restored.</span></h2>
-                <p style="font-size:18px; color: #64748b; font-weight:300; margin-bottom:40px; max-width:400px;">
-                    The premium ergonomic pillow designed for cervical health and a breathable night’s sleep.
-                </p>
-                <div class="btn-vela inline-block !px-12 !py-4 text-lg">Shop Store</div>
+        <div class="p-10 flex gap-10 items-center" style="background: linear-gradient(180deg, #fff 0%, var(--mist) 100%);">
+          <div class="w-1/2">
+            <h2 style="font-size:52px; font-weight:700; line-height:.95; margin-bottom:24px;">Sleep in <br><span style="color:var(--blue)">Pure Air.</span></h2>
+            <div class="btn-vela-primary inline-block">Shop Collection</div>
+          </div>
+          <div class="w-1/2"><img src="hero.jpg" class="rounded-[32px] shadow-xl"></div>
+        </div>
+        <!-- Grid Preview -->
+        <div class="p-10 grid grid-cols-2 gap-8">
+            <div class="bg-white p-6 rounded-[32px] border border-slate-100 text-center">
+                <img src="product-front.png" class="h-40 mx-auto mb-4">
+                <div class="font-bold text-sm">Original Cervical</div>
             </div>
-            <div>
-                <img src="hero.jpg" class="rounded-[40px] shadow-2xl">
+            <div class="bg-white p-6 rounded-[32px] border border-slate-100 text-center">
+                <img src="product-angle.png" class="h-40 mx-auto mb-4">
+                <div class="font-bold text-sm">Cloud Comfort</div>
             </div>
         </div>
+      </div>
+    </div>
+    
+    <!-- Mobile Home -->
+    <div class="mob-outer">
+      <div class="mob-screen">
+        <div class="px-6 py-4 flex justify-between items-center bg-white"><span>☰</span><img src="logo.png" class="h-4"><span>🛒</span></div>
+        <div class="p-6 text-center" style="background:var(--mist)">
+            <h3 style="font-size:32px; font-weight:700; line-height:1; margin-bottom:15px">Deep sleep reimagined.</h3>
+            <img src="hero.jpg" class="rounded-[24px] mb-4">
+            <div class="btn-vela-primary w-full">Shop Now</div>
+        </div>
+        <div class="p-6">
+            <div class="bg-white p-4 rounded-[24px] mb-4 text-center">
+                <img src="product-front.png" class="h-32 mx-auto">
+                <p class="font-bold mt-2">Original Cervical</p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-        <!-- Product Block -->
-        <div class="px-12 py-24 bg-white grid md:grid-cols-3 gap-8">
-            <div class="col-span-1">
-                <h3 style="font-size:32px; font-weight:700; margin-bottom:16px;">Pure Air Technology.</h3>
-                <p style="color:#64748b; font-weight:300;">Advanced open-cell memory foam keeps you 2° cooler than standard pillows.</p>
-            </div>
-            <div class="col-span-1 text-center">
-                <img src="product-front.png" class="h-48 mx-auto mb-4">
-                <div style="font-weight:700; font-size:14px;">The Original Cervical</div>
-                <div style="color:var(--blue); font-weight:700;">$79.00</div>
-            </div>
-            <div class="col-span-1 text-center">
-                <img src="product-angle.png" class="h-48 mx-auto mb-4">
-                <div style="font-weight:700; font-size:14px;">Cloud Comfort Edition</div>
-                <div style="color:var(--blue); font-weight:700;">$89.00</div>
+<!-- 4. WEB PREVIEW: COLLECTION PAGE -->
+<div class="max-w-[1200px] mx-auto px-10">
+    <div class="mock-lbl">Variation 01 · Collection View (Desktop & Mobile)</div>
+    
+    <div class="grid lg:grid-cols-[1fr_350px] gap-12 items-start">
+      <!-- Desktop Collection -->
+      <div class="dk-frame">
+        <div class="dk-chrome">
+            <div class="dot bg-red-400"></div><div class="dot bg-yellow-400"></div><div class="dot bg-green-400"></div>
+            <div class="urlbar">velasleep.com/collections/pillows</div>
+        </div>
+        <div class="p-10">
+            <h2 style="font-size:32px; font-weight:700; margin-bottom:30px">Our Pillows</h2>
+            <div class="grid grid-cols-3 gap-6 text-center">
+                <div class="space-y-4">
+                    <div class="bg-white rounded-[32px] p-6 border border-slate-50"><img src="product-front.png"></div>
+                    <p class="font-bold">Original Cervical</p>
+                    <p style="color:var(--blue); font-weight:700;">$79.00</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="bg-white rounded-[32px] p-6 border border-slate-50"><img src="product-angle.png"></div>
+                    <p class="font-bold">Butterfly Wings</p>
+                    <p style="color:var(--blue); font-weight:700;">$89.00</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="bg-white rounded-[32px] p-6 border border-slate-50"><img src="packaging.jpg" class="rounded-xl"></div>
+                    <p class="font-bold">Trial Bundle</p>
+                    <p style="color:var(--blue); font-weight:700;">$149.00</p>
+                </div>
             </div>
         </div>
-
-        <!-- Lifestyle/Packaging -->
-        <div class="px-12 py-24 flex flex-col md:flex-row gap-12 items-center" style="background:var(--mist)">
-            <div class="md:w-1/2">
-                <img src="packaging.jpg" class="rounded-[40px] shadow-lg">
-            </div>
-            <div class="md:w-1/2">
-                <h2 style="font-size:40px; font-weight:700; margin-bottom:20px;">Unbox a better morning.</h2>
-                <p style="color:#64748b; font-weight:300; margin-bottom:32px;">Every VelaSleep comes in our premium eco-conscious packaging, including a 100-night trial.</p>
-                <div style="background:var(--dark); color:white; padding:16px 40px; border-radius:50px; display:inline-block; font-weight:700; font-size:13px;">Experience VelaSleep</div>
-            </div>
+      </div>
+      
+      <!-- Mobile Collection -->
+      <div class="mob-outer">
+        <div class="mob-screen">
+          <div class="p-6">
+              <h3 style="font-size:24px; font-weight:700; margin-bottom:20px">Our Pillows</h3>
+              <div class="grid grid-cols-1 gap-6">
+                  <div class="bg-white rounded-[24px] p-4 text-center">
+                      <img src="product-front.png" class="h-32 mx-auto">
+                      <p class="font-bold text-sm">Original Cervical</p>
+                      <p class="text-blue-300 font-bold">$79</p>
+                  </div>
+                  <div class="bg-white rounded-[24px] p-4 text-center">
+                    <img src="product-angle.png" class="h-32 mx-auto">
+                    <p class="font-bold text-sm">Butterfly Wings</p>
+                    <p class="text-blue-300 font-bold">$89</p>
+                </div>
+              </div>
+          </div>
         </div>
+      </div>
     </div>
 </div>
 
-<!-- FOOTER Presentation -->
-<div class="py-20 text-center">
-    <img src="logo.png" class="h-4 mx-auto mb-6 opacity-30 grayscale">
-    <p style="font-size:10px; text-transform:uppercase; letter-spacing:4px; opacity:0.3; font-weight:700;">VelaSleep Brand Presentation 2026</p>
+<!-- 5. WEB PREVIEW: PRODUCT PAGE (PDP) -->
+<div class="max-w-[1200px] mx-auto px-10 pb-20">
+    <div class="mock-lbl">Variation 01 · Product Page Focus (Desktop & Mobile)</div>
+    
+    <div class="grid lg:grid-cols-[1fr_350px] gap-12 items-start">
+      <!-- Desktop PDP -->
+      <div class="dk-frame">
+        <div class="dk-chrome">
+            <div class="dot bg-red-400"></div><div class="dot bg-yellow-400"></div><div class="dot bg-green-400"></div>
+            <div class="urlbar">velasleep.com/products/cervical-original</div>
+        </div>
+        <div class="p-12 flex gap-12 items-center">
+            <div class="w-1/2 bg-white rounded-[40px] p-10"><img src="product-front.png"></div>
+            <div class="w-1/2">
+                <span style="color:var(--pink); font-size:10px; font-weight:700; letter-spacing:2px">BEST FOR BACK SLEEPERS</span>
+                <h2 style="font-size:40px; font-weight:700; margin:10px 0;">Original Cervical</h2>
+                <p style="font-size:24px; font-weight:700; color:var(--blue); margin-bottom:24px">$79.00</p>
+                <div class="btn-vela-primary w-full text-center">Add to Cart</div>
+                <p class="mt-6 text-[12px] opacity-50">Free shipping and 100-night trial included with every purchase.</p>
+            </div>
+        </div>
+      </div>
+      
+      <!-- Mobile PDP -->
+      <div class="mob-outer">
+        <div class="mob-screen">
+          <div class="p-6 bg-white"><img src="product-front.png"></div>
+          <div class="p-6">
+              <h3 style="font-size:24px; font-weight:700;">Original Cervical</h3>
+              <p style="font-size:20px; font-weight:700; color:var(--blue); margin-bottom:20px">$79.00</p>
+              <div class="btn-vela-primary w-full mb-4">Add to Cart</div>
+              <div style="background:var(--mist); padding:15px; border-radius:16px; font-size:11px;">
+                  ✓ Orthopedic Design<br>
+                  ✓ Cooling Technology
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
+
+<footer class="py-20 text-center opacity-30 uppercase tracking-[5px] text-[10px] font-bold">
+    VelaSleep Brand Presentation · 2026
+</footer>
 
 </body>
 </html>
